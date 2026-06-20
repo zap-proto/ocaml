@@ -1,7 +1,7 @@
 (executable
   (name example2)
-  (libraries capnp))
+  (libraries zap))
 
 (rule
   (targets shape.ml shape.mli)
-  (action (run capnp compile -o %{bin:capnpc-ocaml} %{dep:shape.capnp})))
+  (action (run zap compile -o %{bin:zapc-ocaml} %{dep:shape.zap})))

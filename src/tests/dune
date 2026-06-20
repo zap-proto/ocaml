@@ -1,6 +1,6 @@
 (test
  (name run_tests)
- (libraries capnp ounit2 base_quickcheck))
+ (libraries zap ounit2 base_quickcheck))
 
 (rule
  (targets
@@ -11,11 +11,11 @@
   testLists.ml          testLists.mli
   testCycles.ml         testCycles.mli)
  (deps
-  c++.capnp
-  test.capnp
-  test-import.capnp
-  test-iface-import.capnp
-  testLists.capnp
-  testCycles.capnp)
+  c++.zap
+  test.zap
+  test-import.zap
+  test-iface-import.zap
+  testLists.zap
+  testCycles.zap)
  (action
-  (run capnp compile -o %{bin:capnpc-ocaml} %{deps})))
+  (run zap compile -o %{bin:zapc-ocaml} %{deps})))

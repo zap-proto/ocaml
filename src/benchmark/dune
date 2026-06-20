@@ -1,7 +1,7 @@
 (executable
  (name main)
  (enabled_if (= %{architecture} amd64))
- (libraries capnp capnp_unix fast_rand base)
+ (libraries zap zap_unix fast_rand base)
  (ocamlopt_flags :standard -O3 -inline 2000))
 
 (rule
@@ -28,17 +28,17 @@
 (rule
  (targets carsales.ml carsales.mli)
  (action
-  (run capnp compile -o %{bin:capnpc-ocaml} %{dep:carsales.capnp})))
+  (run zap compile -o %{bin:zapc-ocaml} %{dep:carsales.zap})))
 
 (rule
  (targets catrank.ml catrank.mli)
  (action
-  (run capnp compile -o %{bin:capnpc-ocaml} %{dep:catrank.capnp})))
+  (run zap compile -o %{bin:zapc-ocaml} %{dep:catrank.zap})))
 
 (rule
  (targets eval.ml eval.mli)
  (action
-  (run capnp compile -o %{bin:capnpc-ocaml} %{dep:eval.capnp})))
+  (run zap compile -o %{bin:zapc-ocaml} %{dep:eval.zap})))
 
 (alias
  (name benchmarks)

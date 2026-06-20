@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -29,10 +29,10 @@
 
 open OUnit2
 
-module TestCycles = TestCycles.Make(Capnp.BytesMessage)
+module TestCycles = TestCycles.Make(Zap.BytesMessage)
 
 let encode_signed_suite =
-  let open Capnp.Runtime.Util in
+  let open Zap.Runtime.Util in
   let t0 _ctx = assert_equal (encode_signed 17 0) 0 in
   let t1 _ctx = assert_equal (encode_signed 17 0xffff) 0xffff in
   let t2 _ctx = assert_equal (encode_signed 17 (-0x10000)) 0x10000 in
@@ -47,7 +47,7 @@ let encode_signed_suite =
   ]
 
 let decode_signed_suite =
-  let open Capnp.Runtime.Util in
+  let open Zap.Runtime.Util in
   let t0 _ctx = assert_equal (decode_signed 17 0) 0 in
   let t1 _ctx = assert_equal (decode_signed 17 0xffff) 0xffff in
   let t2 _ctx = assert_equal (decode_signed 17 0x10000) (-0x10000) in

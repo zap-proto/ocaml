@@ -1,8 +1,8 @@
 @0xf5d779179e64a219;
 
-# A more complex type from https://capnproto.org/language.html
+# A more complex type from https://zap-proto.io/docs/language
 
-# compile this with: capnpc -o ocaml shape.capnp
+# compile this with: zapc -o ocaml shape.zap
 
 struct Shape {
   colour @0 :Colour;

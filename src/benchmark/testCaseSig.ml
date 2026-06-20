@@ -1,4 +1,4 @@
-open Capnp.BytesMessage.StructStorage
+open Zap.BytesMessage.StructStorage
 
 module type TEST_CASE = sig
   type request_t
@@ -12,5 +12,5 @@ end
 
 module type READER = sig
   type struct_t
-  val of_message : 'cap Capnp.BytesMessage.Message.t -> struct_t reader_t
+  val of_message : 'cap Zap.BytesMessage.Message.t -> struct_t reader_t
 end

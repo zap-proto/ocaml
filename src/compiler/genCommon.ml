@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -35,10 +35,10 @@ module List = Base.List
 module Char = Base.Char
 module Hashtbl = Base.Hashtbl
 
-module M   = Capnp.RPC.None(Capnp.BytesMessage)
+module M   = Zap.RPC.None(Zap.BytesMessage)
 module PS_ = PluginSchema.Make(M)
 module PS  = PS_.Reader
-module C   = Capnp
+module C   = Zap
 
 let sprintf = Printf.sprintf
 let failf msg = Format.ksprintf failwith msg
@@ -113,7 +113,7 @@ let mangle_field_undefined (fields : 'a list) =
   mangle_undefined field_names
 
 
-(* Module filenames are alphanumeric and start with uppercase alpha.  Cap'n Proto
+(* Module filenames are alphanumeric and start with uppercase alpha.  ZAP
    schema filenames have very weakly restricted naming, so we have to perform a
    transformation on illegal characters. *)
 let make_legal_module_name schema_filename =
@@ -177,7 +177,7 @@ let children_of
  * So we have to implement a little search logic to get a programmatic name for
  * a node.
  *
- * Raises: Failure if we can't find the node in its parent.  (This means that capnp compile
+ * Raises: Failure if we can't find the node in its parent.  (This means that zap compile
  * emitted a schema that we don't fully understand...) *)
 let get_unqualified_name
     ~(parent : PS.Node.t)
@@ -467,7 +467,7 @@ and union_imports_for_struct ~visited_node_ids ~import_ids ~context struct_node 
 
 
 (** Not all imports contain interesting content.  In particular, the
-    common import "/capnp/c++.capnp" contains nothing of OCaml relevance.
+    common import "/zap/c++.zap" contains nothing of OCaml relevance.
     [find_interesting_import_ids] recurses through the node tree to
     extract the subset of imports which contain interesting content. *)
 and find_interesting_import_ids ~visited_node_ids ~import_ids ~context node =
@@ -655,7 +655,7 @@ let rec type_name ~context ~(mode : Mode.t) ~(scope_mode : Mode.t)
   | Data    -> "string"
   | List list_descr ->
       let list_type = List.element_type_get list_descr in
-      sprintf "(%s, %s, %s) Capnp.Array.t"
+      sprintf "(%s, %s, %s) Zap.Array.t"
         (if mode = Mode.Reader then "ro" else "rw")
         (type_name ~context ~mode ~scope_mode scope list_type)
         begin match (mode, scope_mode) with
@@ -869,11 +869,11 @@ module Method = struct
   let create ~context ~interface_node method_id method_def =
     { interface_node; method_id; method_def; context }
 
-  let capnp_name t = PS.Method.name_get t.method_def
+  let zap_name t = PS.Method.name_get t.method_def
 
-  let uq_name t = String.capitalize (capnp_name t)
+  let uq_name t = String.capitalize (zap_name t)
 
-  let ocaml_name t = underscore_name (capnp_name t)
+  let ocaml_name t = underscore_name (zap_name t)
 
   let payload t = function
     | Params -> PS.Method.param_struct_type_get t.method_def
@@ -908,7 +908,7 @@ module Method = struct
       sprintf "%s.%s.%s.%s"
         mode_str
         (get_fully_qualified_name ~context t.interface_node)
-        (String.capitalize (capnp_name t))
+        (String.capitalize (zap_name t))
         mod_name
 
   let id t = t.method_id

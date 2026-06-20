@@ -23,5 +23,5 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-Some of the `.capnp` schema files are imported from the Cap'n Proto repository
+Some of the `.zap` schema files are imported from the ZAP repository
 and have their own license (at the top of each file).

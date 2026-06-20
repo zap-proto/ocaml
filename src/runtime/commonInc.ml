@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -97,7 +97,7 @@ module Make (MessageWrapper : MessageSig.S) = struct
           assert false
 
 
-  (* Given a range of eight bytes corresponding to a cap'n proto pointer,
+  (* Given a range of eight bytes corresponding to a zap pointer,
      decode the information stored in the pointer. *)
   let decode_pointer (pointer_bytes : 'cap Slice.t) : Pointer.t =
     let pointer64 = Slice.get_int64 pointer_bytes 0 in
@@ -199,7 +199,7 @@ module Make (MessageWrapper : MessageSig.S) = struct
               invalid_msg "composite list pointer has malformed element type tag"
 
 
-  (* Given a description of a cap'n proto far pointer, get the object which
+  (* Given a description of a zap far pointer, get the object which
      the pointer points to. *)
   let rec deref_far_pointer
       (far_pointer : FarPointer.t)

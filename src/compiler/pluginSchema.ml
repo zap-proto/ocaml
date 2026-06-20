@@ -3,11 +3,11 @@
 module Uint32 = Stdint.Uint32
 module Uint64 = Stdint.Uint64
 
-type ro = Capnp.Message.ro
-type rw = Capnp.Message.rw
+type ro = Zap.Message.ro
+type rw = Zap.Message.rw
 
 module type S = sig
-  module MessageWrapper : Capnp.RPC.S
+  module MessageWrapper : Zap.RPC.S
   type 'cap message_t = 'cap MessageWrapper.Message.t
   type 'a reader_t = 'a MessageWrapper.StructStorage.reader_t
   type 'a builder_t = 'a MessageWrapper.StructStorage.builder_t
@@ -44,7 +44,7 @@ module type S = sig
         val discriminant_offset_get : t -> Uint32.t
         val discriminant_offset_get_int_exn : t -> int
         val has_fields : t -> bool
-        val fields_get : t -> (ro, [`Field_9aad50a41f4af45f] reader_t, array_t) Capnp.Array.t
+        val fields_get : t -> (ro, [`Field_9aad50a41f4af45f] reader_t, array_t) Zap.Array.t
         val fields_get_list : t -> [`Field_9aad50a41f4af45f] reader_t list
         val fields_get_array : t -> [`Field_9aad50a41f4af45f] reader_t array
         val of_message : 'cap message_t -> t
@@ -54,7 +54,7 @@ module type S = sig
         type struct_t = [`Enum_b54ab3364333f598]
         type t = struct_t reader_t
         val has_enumerants : t -> bool
-        val enumerants_get : t -> (ro, [`Enumerant_978a7cebdc549a4d] reader_t, array_t) Capnp.Array.t
+        val enumerants_get : t -> (ro, [`Enumerant_978a7cebdc549a4d] reader_t, array_t) Zap.Array.t
         val enumerants_get_list : t -> [`Enumerant_978a7cebdc549a4d] reader_t list
         val enumerants_get_array : t -> [`Enumerant_978a7cebdc549a4d] reader_t array
         val of_message : 'cap message_t -> t
@@ -64,11 +64,11 @@ module type S = sig
         type struct_t = [`Interface_e82753cff0c2218f]
         type t = struct_t reader_t
         val has_methods : t -> bool
-        val methods_get : t -> (ro, [`Method_9500cce23b334d80] reader_t, array_t) Capnp.Array.t
+        val methods_get : t -> (ro, [`Method_9500cce23b334d80] reader_t, array_t) Zap.Array.t
         val methods_get_list : t -> [`Method_9500cce23b334d80] reader_t list
         val methods_get_array : t -> [`Method_9500cce23b334d80] reader_t array
         val has_superclasses : t -> bool
-        val superclasses_get : t -> (ro, [`Superclass_a9962a9ed0a4d7f8] reader_t, array_t) Capnp.Array.t
+        val superclasses_get : t -> (ro, [`Superclass_a9962a9ed0a4d7f8] reader_t, array_t) Zap.Array.t
         val superclasses_get_list : t -> [`Superclass_a9962a9ed0a4d7f8] reader_t list
         val superclasses_get_array : t -> [`Superclass_a9962a9ed0a4d7f8] reader_t array
         val of_message : 'cap message_t -> t
@@ -143,16 +143,16 @@ module type S = sig
       val scope_id_get : t -> Uint64.t
       val scope_id_get_int_exn : t -> int
       val has_parameters : t -> bool
-      val parameters_get : t -> (ro, [`Parameter_b9521bccf10fa3b1] reader_t, array_t) Capnp.Array.t
+      val parameters_get : t -> (ro, [`Parameter_b9521bccf10fa3b1] reader_t, array_t) Zap.Array.t
       val parameters_get_list : t -> [`Parameter_b9521bccf10fa3b1] reader_t list
       val parameters_get_array : t -> [`Parameter_b9521bccf10fa3b1] reader_t array
       val is_generic_get : t -> bool
       val has_nested_nodes : t -> bool
-      val nested_nodes_get : t -> (ro, [`NestedNode_debf55bbfa0fc242] reader_t, array_t) Capnp.Array.t
+      val nested_nodes_get : t -> (ro, [`NestedNode_debf55bbfa0fc242] reader_t, array_t) Zap.Array.t
       val nested_nodes_get_list : t -> [`NestedNode_debf55bbfa0fc242] reader_t list
       val nested_nodes_get_array : t -> [`NestedNode_debf55bbfa0fc242] reader_t array
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -205,7 +205,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val discriminant_value_get : t -> int
@@ -220,7 +220,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -244,7 +244,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_implicit_parameters : t -> bool
-      val implicit_parameters_get : t -> (ro, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_get : t -> (ro, Node.Parameter.t, array_t) Zap.Array.t
       val implicit_parameters_get_list : t -> Node.Parameter.t list
       val implicit_parameters_get_array : t -> Node.Parameter.t array
       val param_struct_type_get : t -> Uint64.t
@@ -258,7 +258,7 @@ module type S = sig
       val result_brand_get : t -> [`Brand_903455f06065422b] reader_t
       val result_brand_get_pipelined : struct_t MessageWrapper.StructRef.t -> [`Brand_903455f06065422b] MessageWrapper.StructRef.t
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -382,7 +382,7 @@ module type S = sig
         type struct_t = [`Scope_abd73485a9636bc9]
         type t = struct_t reader_t
         type unnamed_union_t =
-          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Capnp.Array.t
+          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         val get : t -> unnamed_union_t
@@ -403,7 +403,7 @@ module type S = sig
         val of_builder : struct_t builder_t -> t
       end
       val has_scopes : t -> bool
-      val scopes_get : t -> (ro, [`Scope_abd73485a9636bc9] reader_t, array_t) Capnp.Array.t
+      val scopes_get : t -> (ro, [`Scope_abd73485a9636bc9] reader_t, array_t) Zap.Array.t
       val scopes_get_list : t -> [`Scope_abd73485a9636bc9] reader_t list
       val scopes_get_array : t -> [`Scope_abd73485a9636bc9] reader_t array
       val of_message : 'cap message_t -> t
@@ -463,8 +463,8 @@ module type S = sig
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion : sig
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion : sig
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t reader_t
       val major_get : t -> int
       val minor_get : t -> int
@@ -493,21 +493,21 @@ module type S = sig
         val has_filename : t -> bool
         val filename_get : t -> string
         val has_imports : t -> bool
-        val imports_get : t -> (ro, [`Import_ae504193122357e5] reader_t, array_t) Capnp.Array.t
+        val imports_get : t -> (ro, [`Import_ae504193122357e5] reader_t, array_t) Zap.Array.t
         val imports_get_list : t -> [`Import_ae504193122357e5] reader_t list
         val imports_get_array : t -> [`Import_ae504193122357e5] reader_t array
         val of_message : 'cap message_t -> t
         val of_builder : struct_t builder_t -> t
       end
-      val has_capnp_version : t -> bool
-      val capnp_version_get : t -> CapnpVersion.t
-      val capnp_version_get_pipelined : struct_t MessageWrapper.StructRef.t -> CapnpVersion.struct_t MessageWrapper.StructRef.t
+      val has_zap_version : t -> bool
+      val zap_version_get : t -> ZapVersion.t
+      val zap_version_get_pipelined : struct_t MessageWrapper.StructRef.t -> ZapVersion.struct_t MessageWrapper.StructRef.t
       val has_nodes : t -> bool
-      val nodes_get : t -> (ro, Node.t, array_t) Capnp.Array.t
+      val nodes_get : t -> (ro, Node.t, array_t) Zap.Array.t
       val nodes_get_list : t -> Node.t list
       val nodes_get_array : t -> Node.t array
       val has_requested_files : t -> bool
-      val requested_files_get : t -> (ro, [`RequestedFile_cfea0eb02e810062] reader_t, array_t) Capnp.Array.t
+      val requested_files_get : t -> (ro, [`RequestedFile_cfea0eb02e810062] reader_t, array_t) Zap.Array.t
       val requested_files_get_list : t -> [`RequestedFile_cfea0eb02e810062] reader_t list
       val requested_files_get_array : t -> [`RequestedFile_cfea0eb02e810062] reader_t array
       val of_message : 'cap message_t -> t
@@ -541,13 +541,13 @@ module type S = sig
         val discriminant_offset_set : t -> Uint32.t -> unit
         val discriminant_offset_set_int_exn : t -> int -> unit
         val has_fields : t -> bool
-        val fields_get : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
+        val fields_get : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
         val fields_get_list : t -> [`Field_9aad50a41f4af45f] builder_t list
         val fields_get_array : t -> [`Field_9aad50a41f4af45f] builder_t array
-        val fields_set : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_set_list : t -> [`Field_9aad50a41f4af45f] builder_t list -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_set_array : t -> [`Field_9aad50a41f4af45f] builder_t array -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_init : t -> int -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
+        val fields_set : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_set_list : t -> [`Field_9aad50a41f4af45f] builder_t list -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_set_array : t -> [`Field_9aad50a41f4af45f] builder_t array -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_init : t -> int -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -558,13 +558,13 @@ module type S = sig
         type struct_t = [`Enum_b54ab3364333f598]
         type t = struct_t builder_t
         val has_enumerants : t -> bool
-        val enumerants_get : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
+        val enumerants_get : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
         val enumerants_get_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list
         val enumerants_get_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array
-        val enumerants_set : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_set_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_set_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_init : t -> int -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
+        val enumerants_set : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_set_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_set_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_init : t -> int -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -575,21 +575,21 @@ module type S = sig
         type struct_t = [`Interface_e82753cff0c2218f]
         type t = struct_t builder_t
         val has_methods : t -> bool
-        val methods_get : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
+        val methods_get : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
         val methods_get_list : t -> [`Method_9500cce23b334d80] builder_t list
         val methods_get_array : t -> [`Method_9500cce23b334d80] builder_t array
-        val methods_set : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_set_list : t -> [`Method_9500cce23b334d80] builder_t list -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_set_array : t -> [`Method_9500cce23b334d80] builder_t array -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_init : t -> int -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
+        val methods_set : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_set_list : t -> [`Method_9500cce23b334d80] builder_t list -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_set_array : t -> [`Method_9500cce23b334d80] builder_t array -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_init : t -> int -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
         val has_superclasses : t -> bool
-        val superclasses_get : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
+        val superclasses_get : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
         val superclasses_get_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list
         val superclasses_get_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array
-        val superclasses_set : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_set_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_set_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_init : t -> int -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
+        val superclasses_set : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_set_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_set_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_init : t -> int -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -712,31 +712,31 @@ module type S = sig
       val scope_id_set : t -> Uint64.t -> unit
       val scope_id_set_int_exn : t -> int -> unit
       val has_parameters : t -> bool
-      val parameters_get : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
+      val parameters_get : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
       val parameters_get_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list
       val parameters_get_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array
-      val parameters_set : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_set_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_set_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_init : t -> int -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
+      val parameters_set : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_set_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_set_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_init : t -> int -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
       val is_generic_get : t -> bool
       val is_generic_set : t -> bool -> unit
       val has_nested_nodes : t -> bool
-      val nested_nodes_get : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
+      val nested_nodes_get : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
       val nested_nodes_get_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list
       val nested_nodes_get_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array
-      val nested_nodes_set : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_set_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_set_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_init : t -> int -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
+      val nested_nodes_set : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_set_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_set_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_init : t -> int -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -814,13 +814,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val discriminant_value_get : t -> int
       val discriminant_value_set_exn : t -> int -> unit
       val ordinal_get : t -> Ordinal.t
@@ -840,13 +840,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -880,13 +880,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_implicit_parameters : t -> bool
-      val implicit_parameters_get : t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_get : t -> (rw, Node.Parameter.t, array_t) Zap.Array.t
       val implicit_parameters_get_list : t -> Node.Parameter.t list
       val implicit_parameters_get_array : t -> Node.Parameter.t array
-      val implicit_parameters_set : t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_set_list : t -> Node.Parameter.t list -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_set_array : t -> Node.Parameter.t array -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_init : t -> int -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_set : t -> (rw, Node.Parameter.t, array_t) Zap.Array.t -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_set_list : t -> Node.Parameter.t list -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_set_array : t -> Node.Parameter.t array -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_init : t -> int -> (rw, Node.Parameter.t, array_t) Zap.Array.t
       val param_struct_type_get : t -> Uint64.t
       val param_struct_type_get_int_exn : t -> int
       val param_struct_type_set : t -> Uint64.t -> unit
@@ -906,13 +906,13 @@ module type S = sig
       val result_brand_set_builder : t -> [`Brand_903455f06065422b] builder_t -> [`Brand_903455f06065422b] builder_t
       val result_brand_init : t -> [`Brand_903455f06065422b] builder_t
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1108,14 +1108,14 @@ module type S = sig
         type struct_t = [`Scope_abd73485a9636bc9]
         type t = struct_t builder_t
         type unnamed_union_t =
-          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
+          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         val get : t -> unnamed_union_t
-        val bind_set : t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_set_list : t -> [`Binding_c863cd16969ee7fc] builder_t list -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_set_array : t -> [`Binding_c863cd16969ee7fc] builder_t array -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_init : t -> int -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
+        val bind_set : t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_set_list : t -> [`Binding_c863cd16969ee7fc] builder_t list -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_set_array : t -> [`Binding_c863cd16969ee7fc] builder_t array -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_init : t -> int -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
         val inherit_set : t -> unit
         val scope_id_get : t -> Uint64.t
         val scope_id_get_int_exn : t -> int
@@ -1146,13 +1146,13 @@ module type S = sig
         val init_pointer : pointer_t -> t
       end
       val has_scopes : t -> bool
-      val scopes_get : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
+      val scopes_get : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
       val scopes_get_list : t -> [`Scope_abd73485a9636bc9] builder_t list
       val scopes_get_array : t -> [`Scope_abd73485a9636bc9] builder_t array
-      val scopes_set : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_set_list : t -> [`Scope_abd73485a9636bc9] builder_t list -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_set_array : t -> [`Scope_abd73485a9636bc9] builder_t array -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_init : t -> int -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
+      val scopes_set : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_set_list : t -> [`Scope_abd73485a9636bc9] builder_t list -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_set_array : t -> [`Scope_abd73485a9636bc9] builder_t array -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_init : t -> int -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1254,8 +1254,8 @@ module type S = sig
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion : sig
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion : sig
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t builder_t
       val major_get : t -> int
       val major_set_exn : t -> int -> unit
@@ -1299,40 +1299,40 @@ module type S = sig
         val filename_get : t -> string
         val filename_set : t -> string -> unit
         val has_imports : t -> bool
-        val imports_get : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
+        val imports_get : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
         val imports_get_list : t -> [`Import_ae504193122357e5] builder_t list
         val imports_get_array : t -> [`Import_ae504193122357e5] builder_t array
-        val imports_set : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_set_list : t -> [`Import_ae504193122357e5] builder_t list -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_set_array : t -> [`Import_ae504193122357e5] builder_t array -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_init : t -> int -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
+        val imports_set : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_set_list : t -> [`Import_ae504193122357e5] builder_t list -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_set_array : t -> [`Import_ae504193122357e5] builder_t array -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_init : t -> int -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
         val init_root : ?message_size:int -> unit -> t
         val init_pointer : pointer_t -> t
       end
-      val has_capnp_version : t -> bool
-      val capnp_version_get : t -> CapnpVersion.t
-      val capnp_version_set_reader : t -> CapnpVersion.struct_t reader_t -> CapnpVersion.t
-      val capnp_version_set_builder : t -> CapnpVersion.t -> CapnpVersion.t
-      val capnp_version_init : t -> CapnpVersion.t
+      val has_zap_version : t -> bool
+      val zap_version_get : t -> ZapVersion.t
+      val zap_version_set_reader : t -> ZapVersion.struct_t reader_t -> ZapVersion.t
+      val zap_version_set_builder : t -> ZapVersion.t -> ZapVersion.t
+      val zap_version_init : t -> ZapVersion.t
       val has_nodes : t -> bool
-      val nodes_get : t -> (rw, Node.t, array_t) Capnp.Array.t
+      val nodes_get : t -> (rw, Node.t, array_t) Zap.Array.t
       val nodes_get_list : t -> Node.t list
       val nodes_get_array : t -> Node.t array
-      val nodes_set : t -> (rw, Node.t, array_t) Capnp.Array.t -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_set_list : t -> Node.t list -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_set_array : t -> Node.t array -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_init : t -> int -> (rw, Node.t, array_t) Capnp.Array.t
+      val nodes_set : t -> (rw, Node.t, array_t) Zap.Array.t -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_set_list : t -> Node.t list -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_set_array : t -> Node.t array -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_init : t -> int -> (rw, Node.t, array_t) Zap.Array.t
       val has_requested_files : t -> bool
-      val requested_files_get : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
+      val requested_files_get : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
       val requested_files_get_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list
       val requested_files_get_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array
-      val requested_files_set : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_set_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_set_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_init : t -> int -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
+      val requested_files_set : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_set_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_set_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_init : t -> int -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1342,11 +1342,11 @@ module type S = sig
   end
 end
 
-module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
+module MakeRPC(MessageWrapper : Zap.RPC.S) = struct
   type 'a reader_t = 'a MessageWrapper.StructStorage.reader_t
   type 'a builder_t = 'a MessageWrapper.StructStorage.builder_t
   module CamlBytes = Bytes
-  module DefaultsMessage_ = Capnp.BytesMessage
+  module DefaultsMessage_ = Zap.BytesMessage
 
   let _builder_defaults_message =
     let message_segments = [
@@ -1356,9 +1356,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
     DefaultsMessage_.Message.readonly
       (DefaultsMessage_.Message.of_storage message_segments)
 
-  let invalid_msg = Capnp.Message.invalid_msg
+  let invalid_msg = Zap.Message.invalid_msg
 
-  include Capnp.Runtime.BuilderInc.Make(MessageWrapper)
+  include Zap.Runtime.BuilderInc.Make(MessageWrapper)
 
   type 'cap message_t = 'cap MessageWrapper.Message.t
 
@@ -1405,7 +1405,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       | Undefined x -> x
   end
   module DefaultsCopier_ =
-    Capnp.Runtime.BuilderOps.Make(Capnp.BytesMessage)(MessageWrapper)
+    Zap.Runtime.BuilderOps.Make(Zap.BytesMessage)(MessageWrapper)
 
   let _reader_defaults_message =
     MessageWrapper.Message.create
@@ -1438,15 +1438,15 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let discriminant_offset_get x =
           RA_.get_uint32 ~default:Uint32.zero x 32
         let discriminant_offset_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint32_exn (discriminant_offset_get x)
+          Zap.Runtime.Util.int_of_uint32_exn (discriminant_offset_get x)
         let has_fields x =
           RA_.has_field x 3
         let fields_get x = 
           RA_.get_struct_list x 3
         let fields_get_list x =
-          Capnp.Array.to_list (fields_get x)
+          Zap.Array.to_list (fields_get x)
         let fields_get_array x =
-          Capnp.Array.to_array (fields_get x)
+          Zap.Array.to_array (fields_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -1458,9 +1458,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let enumerants_get x = 
           RA_.get_struct_list x 3
         let enumerants_get_list x =
-          Capnp.Array.to_list (enumerants_get x)
+          Zap.Array.to_list (enumerants_get x)
         let enumerants_get_array x =
-          Capnp.Array.to_array (enumerants_get x)
+          Zap.Array.to_array (enumerants_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -1472,17 +1472,17 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let methods_get x = 
           RA_.get_struct_list x 3
         let methods_get_list x =
-          Capnp.Array.to_list (methods_get x)
+          Zap.Array.to_list (methods_get x)
         let methods_get_array x =
-          Capnp.Array.to_array (methods_get x)
+          Zap.Array.to_array (methods_get x)
         let has_superclasses x =
           RA_.has_field x 4
         let superclasses_get x = 
           RA_.get_struct_list x 4
         let superclasses_get_list x =
-          Capnp.Array.to_list (superclasses_get x)
+          Zap.Array.to_list (superclasses_get x)
         let superclasses_get_array x =
-          Capnp.Array.to_array (superclasses_get x)
+          Zap.Array.to_array (superclasses_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -1560,7 +1560,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 0
         let id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (id_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -1590,7 +1590,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         RA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let has_display_name x =
         RA_.has_field x 0
       let display_name_get x =
@@ -1598,19 +1598,19 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let display_name_prefix_length_get x =
         RA_.get_uint32 ~default:Uint32.zero x 8
       let display_name_prefix_length_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint32_exn (display_name_prefix_length_get x)
+        Zap.Runtime.Util.int_of_uint32_exn (display_name_prefix_length_get x)
       let scope_id_get x =
         RA_.get_uint64 ~default:Uint64.zero x 16
       let scope_id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
       let has_parameters x =
         RA_.has_field x 5
       let parameters_get x = 
         RA_.get_struct_list x 5
       let parameters_get_list x =
-        Capnp.Array.to_list (parameters_get x)
+        Zap.Array.to_list (parameters_get x)
       let parameters_get_array x =
-        Capnp.Array.to_array (parameters_get x)
+        Zap.Array.to_array (parameters_get x)
       let is_generic_get x =
         RA_.get_bit ~default:false x ~byte_ofs:36 ~bit_ofs:0
       let has_nested_nodes x =
@@ -1618,17 +1618,17 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let nested_nodes_get x = 
         RA_.get_struct_list x 1
       let nested_nodes_get_list x =
-        Capnp.Array.to_list (nested_nodes_get x)
+        Zap.Array.to_list (nested_nodes_get x)
       let nested_nodes_get_array x =
-        Capnp.Array.to_array (nested_nodes_get x)
+        Zap.Array.to_array (nested_nodes_get x)
       let has_annotations x =
         RA_.has_field x 2
       let annotations_get x = 
         RA_.get_struct_list x 2
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
       let of_builder x = Some (RA_.StructStorage.readonly x)
     end
@@ -1641,7 +1641,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let offset_get x =
           RA_.get_uint32 ~default:Uint32.zero x 4
         let offset_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint32_exn (offset_get x)
+          Zap.Runtime.Util.int_of_uint32_exn (offset_get x)
         let has_type x =
           RA_.has_field x 2
         let type_get x =
@@ -1665,7 +1665,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 16
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -1711,9 +1711,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         RA_.get_struct_list x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let discriminant_value_get x =
         RA_.get_uint16 ~default:65535 x 2
       let ordinal_get x = RA_.cast_struct x
@@ -1734,9 +1734,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         RA_.get_struct_list x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
       let of_builder x = Some (RA_.StructStorage.readonly x)
     end
@@ -1746,7 +1746,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         RA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let has_brand x =
         RA_.has_field x 0
       let brand_get x =
@@ -1770,13 +1770,13 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let implicit_parameters_get x = 
         RA_.get_struct_list x 4
       let implicit_parameters_get_list x =
-        Capnp.Array.to_list (implicit_parameters_get x)
+        Zap.Array.to_list (implicit_parameters_get x)
       let implicit_parameters_get_array x =
-        Capnp.Array.to_array (implicit_parameters_get x)
+        Zap.Array.to_array (implicit_parameters_get x)
       let param_struct_type_get x =
         RA_.get_uint64 ~default:Uint64.zero x 8
       let param_struct_type_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (param_struct_type_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (param_struct_type_get x)
       let has_param_brand x =
         RA_.has_field x 2
       let param_brand_get x =
@@ -1786,7 +1786,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let result_struct_type_get x =
         RA_.get_uint64 ~default:Uint64.zero x 16
       let result_struct_type_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (result_struct_type_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (result_struct_type_get x)
       let has_result_brand x =
         RA_.has_field x 3
       let result_brand_get x =
@@ -1798,9 +1798,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         RA_.get_struct_list x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
       let of_builder x = Some (RA_.StructStorage.readonly x)
     end
@@ -1825,7 +1825,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let has_brand x =
           RA_.has_field x 0
         let brand_get x =
@@ -1841,7 +1841,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let has_brand x =
           RA_.has_field x 0
         let brand_get x =
@@ -1857,7 +1857,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let has_brand x =
           RA_.has_field x 0
         let brand_get x =
@@ -1899,7 +1899,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
           let scope_id_get x =
             RA_.get_uint64 ~default:Uint64.zero x 16
           let scope_id_get_int_exn x =
-            Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+            Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
           let parameter_index_get x =
             RA_.get_uint16 ~default:0 x 10
           let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
@@ -2006,12 +2006,12 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let bind_get x = 
           RA_.get_struct_list x 0
         let bind_get_list x =
-          Capnp.Array.to_list (bind_get x)
+          Zap.Array.to_list (bind_get x)
         let bind_get_array x =
-          Capnp.Array.to_array (bind_get x)
+          Zap.Array.to_array (bind_get x)
         let inherit_get x = ()
         type unnamed_union_t =
-          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Capnp.Array.t
+          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         let get x =
@@ -2022,7 +2022,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let scope_id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 0
         let scope_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
@@ -2053,9 +2053,9 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let scopes_get x = 
         RA_.get_struct_list x 0
       let scopes_get_list x =
-        Capnp.Array.to_list (scopes_get x)
+        Zap.Array.to_list (scopes_get x)
       let scopes_get_array x =
-        Capnp.Array.to_array (scopes_get x)
+        Zap.Array.to_array (scopes_get x)
       let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
       let of_builder x = Some (RA_.StructStorage.readonly x)
     end
@@ -2072,11 +2072,11 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let int32_get x =
         RA_.get_int32 ~default:(0l) x 4
       let int32_get_int_exn x =
-        Capnp.Runtime.Util.int_of_int32_exn (int32_get x)
+        Zap.Runtime.Util.int_of_int32_exn (int32_get x)
       let int64_get x =
         RA_.get_int64 ~default:(0L) x 8
       let int64_get_int_exn x =
-        Capnp.Runtime.Util.int_of_int64_exn (int64_get x)
+        Zap.Runtime.Util.int_of_int64_exn (int64_get x)
       let uint8_get x =
         RA_.get_uint8 ~default:0 x 2
       let uint16_get x =
@@ -2084,11 +2084,11 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let uint32_get x =
         RA_.get_uint32 ~default:Uint32.zero x 4
       let uint32_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint32_exn (uint32_get x)
+        Zap.Runtime.Util.int_of_uint32_exn (uint32_get x)
       let uint64_get x =
         RA_.get_uint64 ~default:Uint64.zero x 8
       let uint64_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (uint64_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (uint64_get x)
       let float32_get x =
         RA_.get_float32 ~default_bits:(0l) x 4
       let float64_get x =
@@ -2168,7 +2168,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         RA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let has_brand x =
         RA_.has_field x 1
       let brand_get x =
@@ -2196,8 +2196,8 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion = struct
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion = struct
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t reader_t
       let major_get x =
         RA_.get_uint16 ~default:0 x 0
@@ -2220,7 +2220,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
           let id_get x =
             RA_.get_uint64 ~default:Uint64.zero x 0
           let id_get_int_exn x =
-            Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+            Zap.Runtime.Util.int_of_uint64_exn (id_get x)
           let has_name x =
             RA_.has_field x 0
           let name_get x =
@@ -2231,7 +2231,7 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let id_get x =
           RA_.get_uint64 ~default:Uint64.zero x 0
         let id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (id_get x)
         let has_filename x =
           RA_.has_field x 0
         let filename_get x =
@@ -2241,34 +2241,34 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let imports_get x = 
           RA_.get_struct_list x 1
         let imports_get_list x =
-          Capnp.Array.to_list (imports_get x)
+          Zap.Array.to_list (imports_get x)
         let imports_get_array x =
-          Capnp.Array.to_array (imports_get x)
+          Zap.Array.to_array (imports_get x)
         let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
         let of_builder x = Some (RA_.StructStorage.readonly x)
       end
-      let has_capnp_version x =
+      let has_zap_version x =
         RA_.has_field x 2
-      let capnp_version_get x =
+      let zap_version_get x =
         RA_.get_struct x 2
-      let capnp_version_get_pipelined x =
+      let zap_version_get_pipelined x =
         MessageWrapper.Untyped.struct_field x 2
       let has_nodes x =
         RA_.has_field x 0
       let nodes_get x = 
         RA_.get_struct_list x 0
       let nodes_get_list x =
-        Capnp.Array.to_list (nodes_get x)
+        Zap.Array.to_list (nodes_get x)
       let nodes_get_array x =
-        Capnp.Array.to_array (nodes_get x)
+        Zap.Array.to_array (nodes_get x)
       let has_requested_files x =
         RA_.has_field x 1
       let requested_files_get x = 
         RA_.get_struct_list x 1
       let requested_files_get_list x =
-        Capnp.Array.to_list (requested_files_get x)
+        Zap.Array.to_list (requested_files_get x)
       let requested_files_get_array x =
-        Capnp.Array.to_array (requested_files_get x)
+        Zap.Array.to_array (requested_files_get x)
       let of_message x = RA_.get_root_struct (RA_.Message.readonly x)
       let of_builder x = Some (RA_.StructStorage.readonly x)
     end
@@ -2311,29 +2311,29 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let discriminant_offset_get x =
           BA_.get_uint32 ~default:Uint32.zero x 32
         let discriminant_offset_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint32_exn (discriminant_offset_get x)
+          Zap.Runtime.Util.int_of_uint32_exn (discriminant_offset_get x)
         let discriminant_offset_set x v =
           BA_.set_uint32 ~default:Uint32.zero x 32 v
-        let discriminant_offset_set_int_exn x v = discriminant_offset_set x (Capnp.Runtime.Util.uint32_of_int_exn v)
+        let discriminant_offset_set_int_exn x v = discriminant_offset_set x (Zap.Runtime.Util.uint32_of_int_exn v)
         let has_fields x =
           BA_.has_field x 3
         let fields_get x = 
           BA_.get_struct_list ~data_words:3 ~pointer_words:4 x 3
         let fields_get_list x =
-          Capnp.Array.to_list (fields_get x)
+          Zap.Array.to_list (fields_get x)
         let fields_get_array x =
-          Capnp.Array.to_array (fields_get x)
+          Zap.Array.to_array (fields_get x)
         let fields_set x v =
           BA_.set_struct_list ~data_words:3 ~pointer_words:4 x 3 v
         let fields_init x n =
           BA_.init_struct_list ~data_words:3 ~pointer_words:4 x 3 n
         let fields_set_list x v =
           let builder = fields_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let fields_set_array x v =
           let builder = fields_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let of_message x = BA_.get_root_struct ~data_words:5 ~pointer_words:6 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -2351,20 +2351,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let enumerants_get x = 
           BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 3
         let enumerants_get_list x =
-          Capnp.Array.to_list (enumerants_get x)
+          Zap.Array.to_list (enumerants_get x)
         let enumerants_get_array x =
-          Capnp.Array.to_array (enumerants_get x)
+          Zap.Array.to_array (enumerants_get x)
         let enumerants_set x v =
           BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 3 v
         let enumerants_init x n =
           BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 3 n
         let enumerants_set_list x v =
           let builder = enumerants_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let enumerants_set_array x v =
           let builder = enumerants_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let of_message x = BA_.get_root_struct ~data_words:5 ~pointer_words:6 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -2382,40 +2382,40 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let methods_get x = 
           BA_.get_struct_list ~data_words:3 ~pointer_words:5 x 3
         let methods_get_list x =
-          Capnp.Array.to_list (methods_get x)
+          Zap.Array.to_list (methods_get x)
         let methods_get_array x =
-          Capnp.Array.to_array (methods_get x)
+          Zap.Array.to_array (methods_get x)
         let methods_set x v =
           BA_.set_struct_list ~data_words:3 ~pointer_words:5 x 3 v
         let methods_init x n =
           BA_.init_struct_list ~data_words:3 ~pointer_words:5 x 3 n
         let methods_set_list x v =
           let builder = methods_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let methods_set_array x v =
           let builder = methods_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let has_superclasses x =
           BA_.has_field x 4
         let superclasses_get x = 
           BA_.get_struct_list ~data_words:1 ~pointer_words:1 x 4
         let superclasses_get_list x =
-          Capnp.Array.to_list (superclasses_get x)
+          Zap.Array.to_list (superclasses_get x)
         let superclasses_get_array x =
-          Capnp.Array.to_array (superclasses_get x)
+          Zap.Array.to_array (superclasses_get x)
         let superclasses_set x v =
           BA_.set_struct_list ~data_words:1 ~pointer_words:1 x 4 v
         let superclasses_init x n =
           BA_.init_struct_list ~data_words:1 ~pointer_words:1 x 4 n
         let superclasses_set_list x v =
           let builder = superclasses_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let superclasses_set_array x v =
           let builder = superclasses_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let of_message x = BA_.get_root_struct ~data_words:5 ~pointer_words:6 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -2554,10 +2554,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 0
         let id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (id_get x)
         let id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 0 v
-        let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let of_message x = BA_.get_root_struct ~data_words:1 ~pointer_words:1 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
         let to_reader x = Some (RA_.StructStorage.readonly x)
@@ -2720,10 +2720,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         BA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let id_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 0 v
-      let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_display_name x =
         BA_.has_field x 0
       let display_name_get x =
@@ -2733,36 +2733,36 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let display_name_prefix_length_get x =
         BA_.get_uint32 ~default:Uint32.zero x 8
       let display_name_prefix_length_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint32_exn (display_name_prefix_length_get x)
+        Zap.Runtime.Util.int_of_uint32_exn (display_name_prefix_length_get x)
       let display_name_prefix_length_set x v =
         BA_.set_uint32 ~default:Uint32.zero x 8 v
-      let display_name_prefix_length_set_int_exn x v = display_name_prefix_length_set x (Capnp.Runtime.Util.uint32_of_int_exn v)
+      let display_name_prefix_length_set_int_exn x v = display_name_prefix_length_set x (Zap.Runtime.Util.uint32_of_int_exn v)
       let scope_id_get x =
         BA_.get_uint64 ~default:Uint64.zero x 16
       let scope_id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
       let scope_id_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 16 v
-      let scope_id_set_int_exn x v = scope_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let scope_id_set_int_exn x v = scope_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_parameters x =
         BA_.has_field x 5
       let parameters_get x = 
         BA_.get_struct_list ~data_words:0 ~pointer_words:1 x 5
       let parameters_get_list x =
-        Capnp.Array.to_list (parameters_get x)
+        Zap.Array.to_list (parameters_get x)
       let parameters_get_array x =
-        Capnp.Array.to_array (parameters_get x)
+        Zap.Array.to_array (parameters_get x)
       let parameters_set x v =
         BA_.set_struct_list ~data_words:0 ~pointer_words:1 x 5 v
       let parameters_init x n =
         BA_.init_struct_list ~data_words:0 ~pointer_words:1 x 5 n
       let parameters_set_list x v =
         let builder = parameters_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let parameters_set_array x v =
         let builder = parameters_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let is_generic_get x =
         BA_.get_bit ~default:false x ~byte_ofs:36 ~bit_ofs:0
@@ -2773,40 +2773,40 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let nested_nodes_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:1 x 1
       let nested_nodes_get_list x =
-        Capnp.Array.to_list (nested_nodes_get x)
+        Zap.Array.to_list (nested_nodes_get x)
       let nested_nodes_get_array x =
-        Capnp.Array.to_array (nested_nodes_get x)
+        Zap.Array.to_array (nested_nodes_get x)
       let nested_nodes_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:1 x 1 v
       let nested_nodes_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:1 x 1 n
       let nested_nodes_set_list x v =
         let builder = nested_nodes_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let nested_nodes_set_array x v =
         let builder = nested_nodes_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let has_annotations x =
         BA_.has_field x 2
       let annotations_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 2
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let annotations_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 2 v
       let annotations_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 2 n
       let annotations_set_list x v =
         let builder = annotations_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let annotations_set_array x v =
         let builder = annotations_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let of_message x = BA_.get_root_struct ~data_words:5 ~pointer_words:6 x
       let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -2825,10 +2825,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let offset_get x =
           BA_.get_uint32 ~default:Uint32.zero x 4
         let offset_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint32_exn (offset_get x)
+          Zap.Runtime.Util.int_of_uint32_exn (offset_get x)
         let offset_set x v =
           BA_.set_uint32 ~default:Uint32.zero x 4 v
-        let offset_set_int_exn x v = offset_set x (Capnp.Runtime.Util.uint32_of_int_exn v)
+        let offset_set_int_exn x v = offset_set x (Zap.Runtime.Util.uint32_of_int_exn v)
         let has_type x =
           BA_.has_field x 2
         let type_get x =
@@ -2867,10 +2867,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 16
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let type_id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 16 v
-        let type_id_set_int_exn x v = type_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let type_id_set_int_exn x v = type_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let of_message x = BA_.get_root_struct ~data_words:3 ~pointer_words:4 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
         let to_reader x = Some (RA_.StructStorage.readonly x)
@@ -2973,20 +2973,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let annotations_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 1 v
       let annotations_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 1 n
       let annotations_set_list x v =
         let builder = annotations_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let annotations_set_array x v =
         let builder = annotations_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let discriminant_value_get x =
         BA_.get_uint16 ~default:65535 x 2
@@ -3027,20 +3027,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let annotations_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 1 v
       let annotations_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 1 n
       let annotations_set_list x v =
         let builder = annotations_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let annotations_set_array x v =
         let builder = annotations_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let of_message x = BA_.get_root_struct ~data_words:1 ~pointer_words:2 x
       let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -3056,10 +3056,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         BA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let id_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 0 v
-      let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_brand x =
         BA_.has_field x 0
       let brand_get x =
@@ -3096,28 +3096,28 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let implicit_parameters_get x = 
         BA_.get_struct_list ~data_words:0 ~pointer_words:1 x 4
       let implicit_parameters_get_list x =
-        Capnp.Array.to_list (implicit_parameters_get x)
+        Zap.Array.to_list (implicit_parameters_get x)
       let implicit_parameters_get_array x =
-        Capnp.Array.to_array (implicit_parameters_get x)
+        Zap.Array.to_array (implicit_parameters_get x)
       let implicit_parameters_set x v =
         BA_.set_struct_list ~data_words:0 ~pointer_words:1 x 4 v
       let implicit_parameters_init x n =
         BA_.init_struct_list ~data_words:0 ~pointer_words:1 x 4 n
       let implicit_parameters_set_list x v =
         let builder = implicit_parameters_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let implicit_parameters_set_array x v =
         let builder = implicit_parameters_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let param_struct_type_get x =
         BA_.get_uint64 ~default:Uint64.zero x 8
       let param_struct_type_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (param_struct_type_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (param_struct_type_get x)
       let param_struct_type_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 8 v
-      let param_struct_type_set_int_exn x v = param_struct_type_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let param_struct_type_set_int_exn x v = param_struct_type_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_param_brand x =
         BA_.has_field x 2
       let param_brand_get x =
@@ -3131,10 +3131,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let result_struct_type_get x =
         BA_.get_uint64 ~default:Uint64.zero x 16
       let result_struct_type_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (result_struct_type_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (result_struct_type_get x)
       let result_struct_type_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 16 v
-      let result_struct_type_set_int_exn x v = result_struct_type_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let result_struct_type_set_int_exn x v = result_struct_type_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_result_brand x =
         BA_.has_field x 3
       let result_brand_get x =
@@ -3150,20 +3150,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let annotations_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 1
       let annotations_get_list x =
-        Capnp.Array.to_list (annotations_get x)
+        Zap.Array.to_list (annotations_get x)
       let annotations_get_array x =
-        Capnp.Array.to_array (annotations_get x)
+        Zap.Array.to_array (annotations_get x)
       let annotations_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 1 v
       let annotations_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 1 n
       let annotations_set_list x v =
         let builder = annotations_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let annotations_set_array x v =
         let builder = annotations_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let of_message x = BA_.get_root_struct ~data_words:3 ~pointer_words:5 x
       let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -3203,10 +3203,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let type_id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 8 v
-        let type_id_set_int_exn x v = type_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let type_id_set_int_exn x v = type_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let has_brand x =
           BA_.has_field x 0
         let brand_get x =
@@ -3231,10 +3231,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let type_id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 8 v
-        let type_id_set_int_exn x v = type_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let type_id_set_int_exn x v = type_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let has_brand x =
           BA_.has_field x 0
         let brand_get x =
@@ -3259,10 +3259,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let type_id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 8
         let type_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (type_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (type_id_get x)
         let type_id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 8 v
-        let type_id_set_int_exn x v = type_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let type_id_set_int_exn x v = type_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let has_brand x =
           BA_.has_field x 0
         let brand_get x =
@@ -3326,10 +3326,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
           let scope_id_get x =
             BA_.get_uint64 ~default:Uint64.zero x 16
           let scope_id_get_int_exn x =
-            Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+            Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
           let scope_id_set x v =
             BA_.set_uint64 ~default:Uint64.zero x 16 v
-          let scope_id_set_int_exn x v = scope_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+          let scope_id_set_int_exn x v = scope_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
           let parameter_index_get x =
             BA_.get_uint16 ~default:0 x 10
           let parameter_index_set_exn x v =
@@ -3608,26 +3608,26 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let bind_get x = 
           BA_.get_struct_list ~data_words:1 ~pointer_words:1 x 0
         let bind_get_list x =
-          Capnp.Array.to_list (bind_get x)
+          Zap.Array.to_list (bind_get x)
         let bind_get_array x =
-          Capnp.Array.to_array (bind_get x)
+          Zap.Array.to_array (bind_get x)
         let bind_set x v =
           BA_.set_struct_list ~data_words:1 ~pointer_words:1 ~discr:{BA_.Discr.value=0; BA_.Discr.byte_ofs=8} x 0 v
         let bind_init x n =
           BA_.init_struct_list ~data_words:1 ~pointer_words:1 ~discr:{BA_.Discr.value=0; BA_.Discr.byte_ofs=8} x 0 n
         let bind_set_list x v =
           let builder = bind_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let bind_set_array x v =
           let builder = bind_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let inherit_get x = ()
         let inherit_set x =
           BA_.set_void ~discr:{BA_.Discr.value=1; BA_.Discr.byte_ofs=8} x
         type unnamed_union_t =
-          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
+          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         let get x =
@@ -3638,10 +3638,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let scope_id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 0
         let scope_id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (scope_id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (scope_id_get x)
         let scope_id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 0 v
-        let scope_id_set_int_exn x v = scope_id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let scope_id_set_int_exn x v = scope_id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let of_message x = BA_.get_root_struct ~data_words:2 ~pointer_words:1 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
         let to_reader x = Some (RA_.StructStorage.readonly x)
@@ -3688,20 +3688,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let scopes_get x = 
         BA_.get_struct_list ~data_words:2 ~pointer_words:1 x 0
       let scopes_get_list x =
-        Capnp.Array.to_list (scopes_get x)
+        Zap.Array.to_list (scopes_get x)
       let scopes_get_array x =
-        Capnp.Array.to_array (scopes_get x)
+        Zap.Array.to_array (scopes_get x)
       let scopes_set x v =
         BA_.set_struct_list ~data_words:2 ~pointer_words:1 x 0 v
       let scopes_init x n =
         BA_.init_struct_list ~data_words:2 ~pointer_words:1 x 0 n
       let scopes_set_list x v =
         let builder = scopes_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let scopes_set_array x v =
         let builder = scopes_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let of_message x = BA_.get_root_struct ~data_words:0 ~pointer_words:1 x
       let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -3732,14 +3732,14 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let int32_get x =
         BA_.get_int32 ~default:(0l) x 4
       let int32_get_int_exn x =
-        Capnp.Runtime.Util.int_of_int32_exn (int32_get x)
+        Zap.Runtime.Util.int_of_int32_exn (int32_get x)
       let int32_set x v =
         BA_.set_int32 ~discr:{BA_.Discr.value=4; BA_.Discr.byte_ofs=0} ~default:(0l) x 4 v
-      let int32_set_int_exn x v = int32_set x (Capnp.Runtime.Util.int32_of_int_exn v)
+      let int32_set_int_exn x v = int32_set x (Zap.Runtime.Util.int32_of_int_exn v)
       let int64_get x =
         BA_.get_int64 ~default:(0L) x 8
       let int64_get_int_exn x =
-        Capnp.Runtime.Util.int_of_int64_exn (int64_get x)
+        Zap.Runtime.Util.int_of_int64_exn (int64_get x)
       let int64_set x v =
         BA_.set_int64 ~discr:{BA_.Discr.value=5; BA_.Discr.byte_ofs=0} ~default:(0L) x 8 v
       let int64_set_int x v = int64_set x (Int64.of_int v)
@@ -3754,17 +3754,17 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let uint32_get x =
         BA_.get_uint32 ~default:Uint32.zero x 4
       let uint32_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint32_exn (uint32_get x)
+        Zap.Runtime.Util.int_of_uint32_exn (uint32_get x)
       let uint32_set x v =
         BA_.set_uint32 ~discr:{BA_.Discr.value=8; BA_.Discr.byte_ofs=0} ~default:Uint32.zero x 4 v
-      let uint32_set_int_exn x v = uint32_set x (Capnp.Runtime.Util.uint32_of_int_exn v)
+      let uint32_set_int_exn x v = uint32_set x (Zap.Runtime.Util.uint32_of_int_exn v)
       let uint64_get x =
         BA_.get_uint64 ~default:Uint64.zero x 8
       let uint64_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (uint64_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (uint64_get x)
       let uint64_set x v =
         BA_.set_uint64 ~discr:{BA_.Discr.value=9; BA_.Discr.byte_ofs=0} ~default:Uint64.zero x 8 v
-      let uint64_set_int_exn x v = uint64_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let uint64_set_int_exn x v = uint64_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let float32_get x =
         BA_.get_float32 ~default_bits:(0l) x 4
       let float32_set x v =
@@ -3879,10 +3879,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
       let id_get x =
         BA_.get_uint64 ~default:Uint64.zero x 0
       let id_get_int_exn x =
-        Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+        Zap.Runtime.Util.int_of_uint64_exn (id_get x)
       let id_set x v =
         BA_.set_uint64 ~default:Uint64.zero x 0 v
-      let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+      let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
       let has_brand x =
         BA_.has_field x 1
       let brand_get x =
@@ -3923,8 +3923,8 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion = struct
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion = struct
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t builder_t
       let major_get x =
         BA_.get_uint16 ~default:0 x 0
@@ -3958,10 +3958,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
           let id_get x =
             BA_.get_uint64 ~default:Uint64.zero x 0
           let id_get_int_exn x =
-            Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+            Zap.Runtime.Util.int_of_uint64_exn (id_get x)
           let id_set x v =
             BA_.set_uint64 ~default:Uint64.zero x 0 v
-          let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+          let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
           let has_name x =
             BA_.has_field x 0
           let name_get x =
@@ -3979,10 +3979,10 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let id_get x =
           BA_.get_uint64 ~default:Uint64.zero x 0
         let id_get_int_exn x =
-          Capnp.Runtime.Util.int_of_uint64_exn (id_get x)
+          Zap.Runtime.Util.int_of_uint64_exn (id_get x)
         let id_set x v =
           BA_.set_uint64 ~default:Uint64.zero x 0 v
-        let id_set_int_exn x v = id_set x (Capnp.Runtime.Util.uint64_of_int_exn v)
+        let id_set_int_exn x v = id_set x (Zap.Runtime.Util.uint64_of_int_exn v)
         let has_filename x =
           BA_.has_field x 0
         let filename_get x =
@@ -3994,20 +3994,20 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let imports_get x = 
           BA_.get_struct_list ~data_words:1 ~pointer_words:1 x 1
         let imports_get_list x =
-          Capnp.Array.to_list (imports_get x)
+          Zap.Array.to_list (imports_get x)
         let imports_get_array x =
-          Capnp.Array.to_array (imports_get x)
+          Zap.Array.to_array (imports_get x)
         let imports_set x v =
           BA_.set_struct_list ~data_words:1 ~pointer_words:1 x 1 v
         let imports_init x n =
           BA_.init_struct_list ~data_words:1 ~pointer_words:1 x 1 n
         let imports_set_list x v =
           let builder = imports_init x (List.length v) in
-          let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let imports_set_array x v =
           let builder = imports_init x (Array.length v) in
-          let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+          let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
           builder
         let of_message x = BA_.get_root_struct ~data_words:1 ~pointer_words:2 x
         let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -4017,55 +4017,55 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
         let init_pointer ptr =
           BA_.init_struct_pointer ptr ~data_words:1 ~pointer_words:2
       end
-      let has_capnp_version x =
+      let has_zap_version x =
         BA_.has_field x 2
-      let capnp_version_get x =
+      let zap_version_get x =
         BA_.get_struct ~data_words:1 ~pointer_words:0 x 2
-      let capnp_version_set_reader x v =
+      let zap_version_set_reader x v =
         BA_.set_struct ~data_words:1 ~pointer_words:0 x 2 v
-      let capnp_version_set_builder x v =
+      let zap_version_set_builder x v =
         BA_.set_struct ~data_words:1 ~pointer_words:0 x 2 (Some v)
-      let capnp_version_init x =
+      let zap_version_init x =
         BA_.init_struct ~data_words:1 ~pointer_words:0 x 2
       let has_nodes x =
         BA_.has_field x 0
       let nodes_get x = 
         BA_.get_struct_list ~data_words:5 ~pointer_words:6 x 0
       let nodes_get_list x =
-        Capnp.Array.to_list (nodes_get x)
+        Zap.Array.to_list (nodes_get x)
       let nodes_get_array x =
-        Capnp.Array.to_array (nodes_get x)
+        Zap.Array.to_array (nodes_get x)
       let nodes_set x v =
         BA_.set_struct_list ~data_words:5 ~pointer_words:6 x 0 v
       let nodes_init x n =
         BA_.init_struct_list ~data_words:5 ~pointer_words:6 x 0 n
       let nodes_set_list x v =
         let builder = nodes_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let nodes_set_array x v =
         let builder = nodes_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let has_requested_files x =
         BA_.has_field x 1
       let requested_files_get x = 
         BA_.get_struct_list ~data_words:1 ~pointer_words:2 x 1
       let requested_files_get_list x =
-        Capnp.Array.to_list (requested_files_get x)
+        Zap.Array.to_list (requested_files_get x)
       let requested_files_get_array x =
-        Capnp.Array.to_array (requested_files_get x)
+        Zap.Array.to_array (requested_files_get x)
       let requested_files_set x v =
         BA_.set_struct_list ~data_words:1 ~pointer_words:2 x 1 v
       let requested_files_init x n =
         BA_.init_struct_list ~data_words:1 ~pointer_words:2 x 1 n
       let requested_files_set_list x v =
         let builder = requested_files_init x (List.length v) in
-        let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let requested_files_set_array x v =
         let builder = requested_files_init x (Array.length v) in
-        let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in
+        let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in
         builder
       let of_message x = BA_.get_root_struct ~data_words:0 ~pointer_words:3 x
       let to_message x = x.BA_.NM.StructStorage.data.MessageWrapper.Slice.msg
@@ -4085,4 +4085,4 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct
   module MessageWrapper = MessageWrapper
 end [@@inline]
 
-module Make(M:Capnp.MessageSig.S) = MakeRPC(Capnp.RPC.None(M)) [@@inline]
+module Make(M:Zap.MessageSig.S) = MakeRPC(Zap.RPC.None(M)) [@@inline]

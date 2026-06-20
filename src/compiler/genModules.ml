@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -39,10 +39,10 @@ module List = Base.List
 module PS        = GenCommon.PS
 module Context   = GenCommon.Context
 module Mode      = GenCommon.Mode
-module C         = Capnp
+module C         = Zap
 
 module ReaderApi = struct
-  open Capnp.Runtime
+  open Zap.Runtime
   module MessageWrapper = GenCommon.M
   include ReaderInc.Make(MessageWrapper)
 end
@@ -167,7 +167,7 @@ let generate_enum_runtime_setters ~context enum_node =
   ]
 
 
-(* Generate a set of decoder functions for reading elements from a Cap'n Proto
+(* Generate a set of decoder functions for reading elements from a ZAP
    List<T>.  The resulting decoders could be passed as an argument to
    [Reader.get_list] in order to generate a getter for a list field. *)
 let rec generate_list_element_decoder ~context ~scope list_def =
@@ -233,7 +233,7 @@ let rec generate_list_element_decoder ~context ~scope list_def =
 
 
 (* Generate a set of decoder/encoder functions for reading and writing
-   elements from/to a Cap'n Proto List<T>.  The resulting codecs could
+   elements from/to a ZAP List<T>.  The resulting codecs could
    be passed as an argument to [Builder.get_list] in order to generate
    a getter for a list field. *)
 let rec generate_list_element_codecs ~context ~scope list_def =
@@ -414,7 +414,7 @@ let generate_list_getters ~context ~scope ~list_type ~mode
               "let " ^ field_name ^ "_get x =";
             ] @ codecs_declaration @ [
               sprintf "  BA_.get_list%s \
-                       ~storage_type:Capnp.Runtime.ListStorageType.Pointer ~codecs \
+                       ~storage_type:Zap.Runtime.ListStorageType.Pointer ~codecs \
                        x %u"
                 default_str field_ofs;
             ]
@@ -446,7 +446,7 @@ let generate_list_getters ~context ~scope ~list_type ~mode
               ".encode_safe v)";
             "  in";
             sprintf "  BA_.get_list%s" default_str;
-            "    ~storage_type:Capnp.Runtime.ListStorageType.Bytes2";
+            "    ~storage_type:Zap.Runtime.ListStorageType.Bytes2";
             "    ~codecs:(BA_.NC.ListCodecs.Bytes2 (slice_decoder, slice_encoder))";
             sprintf "    x %u" field_ofs;
           ]
@@ -464,9 +464,9 @@ let generate_list_getters ~context ~scope ~list_type ~mode
   in
   basic_getter @ [
     "let " ^ field_name ^ "_get_list x =";
-    "  Capnp.Array.to_list (" ^ field_name ^ "_get x)";
+    "  Zap.Array.to_list (" ^ field_name ^ "_get x)";
     "let " ^ field_name ^ "_get_array x =";
-    "  Capnp.Array.to_array (" ^ field_name ^ "_get x)";
+    "  Zap.Array.to_array (" ^ field_name ^ "_get x)";
   ]
 
 
@@ -530,11 +530,11 @@ let generate_list_setters ~context ~scope ~list_type
         in [
           "let " ^ field_name ^ "_set x v =";
         ] @ codecs_declaration @ [
-          "  BA_.set_list ~storage_type:Capnp.Runtime.ListStorageType.Pointer";
+          "  BA_.set_list ~storage_type:Zap.Runtime.ListStorageType.Pointer";
           sprintf "    ~codecs %sx %u v" discr_str field_ofs;
           "let " ^ field_name ^ "_init x n =";
         ] @ codecs_declaration @ [
-          "  BA_.init_list ~storage_type:Capnp.Runtime.ListStorageType.Pointer";
+          "  BA_.init_list ~storage_type:Zap.Runtime.ListStorageType.Pointer";
           sprintf "    ~codecs %sx %u n" discr_str field_ofs;
         ]
     | Enum enum_def ->
@@ -555,12 +555,12 @@ let generate_list_setters ~context ~scope ~list_type
         ] in [
           "let " ^ field_name ^ "_set x v =";
         ] @ codecs @ [
-          "  BA_.set_list ~storage_type:Capnp.Runtime.ListStorageType.Bytes2";
+          "  BA_.set_list ~storage_type:Zap.Runtime.ListStorageType.Bytes2";
           "    ~codecs:(BA_.NC.ListCodecs.Bytes2 (slice_decoder, slice_encoder))";
           sprintf "    %sx %u v" discr_str field_ofs;
           "let " ^ field_name ^ "_init x n =";
         ] @ codecs @ [
-          "  BA_.init_list ~storage_type:Capnp.Runtime.ListStorageType.Bytes2";
+          "  BA_.init_list ~storage_type:Zap.Runtime.ListStorageType.Bytes2";
           "    ~codecs:(BA_.NC.ListCodecs.Bytes2 (slice_decoder, slice_encoder))";
           sprintf "    %sx %u n" discr_str field_ofs;
         ]
@@ -582,11 +582,11 @@ let generate_list_setters ~context ~scope ~list_type
   basic_setters @ [
     "let " ^ field_name ^ "_set_list x v =";
     "  let builder = " ^ field_name ^ "_init x (List.length v) in";
-    "  let () = List.iteri (fun i a -> Capnp.Array.set builder i a) v in";
+    "  let () = List.iteri (fun i a -> Zap.Array.set builder i a) v in";
     "  builder";
     "let " ^ field_name ^ "_set_array x v =";
     "  let builder = " ^ field_name ^ "_init x (Array.length v) in";
-    "  let () = Array.iteri (fun i a -> Capnp.Array.set builder i a) v in";
+    "  let () = Array.iteri (fun i a -> Zap.Array.set builder i a) v in";
     "  builder";
   ]
 
@@ -808,7 +808,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 (Int32.to_string a)
                 (field_ofs * 4);
               "let " ^ field_name ^ "_get_int_exn x =";
-              "  Capnp.Runtime.Util.int_of_int32_exn (" ^ field_name ^ "_get x)";
+              "  Zap.Runtime.Util.int_of_int32_exn (" ^ field_name ^ "_get x)";
             ] in
             let setters = [
               "let " ^ field_name ^ "_set x v =";
@@ -817,7 +817,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 (Int32.to_string a)
                 (field_ofs * 4);
               "let " ^ field_name ^ "_set_int_exn x v = " ^
-                field_name ^ "_set x (Capnp.Runtime.Util.int32_of_int_exn v)";
+                field_name ^ "_set x (Zap.Runtime.Util.int32_of_int_exn v)";
             ] in
             (getters, setters)
         | (PS.Type.Int64, PS.Value.Int64 a) ->
@@ -828,7 +828,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 (Int64.to_string a)
                 (field_ofs * 8);
               "let " ^ field_name ^ "_get_int_exn x =";
-              "  Capnp.Runtime.Util.int_of_int64_exn (" ^ field_name ^ "_get x)";
+              "  Zap.Runtime.Util.int_of_int64_exn (" ^ field_name ^ "_get x)";
             ] in
             let setters = [
               "let " ^ field_name ^ "_set x v =";
@@ -886,7 +886,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 default
                 (field_ofs * 4);
               "let " ^ field_name ^ "_get_int_exn x =";
-              "  Capnp.Runtime.Util.int_of_uint32_exn (" ^ field_name ^ "_get x)";
+              "  Zap.Runtime.Util.int_of_uint32_exn (" ^ field_name ^ "_get x)";
             ] in
             let setters = [
               "let " ^ field_name ^ "_set x v =";
@@ -895,7 +895,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 default
                 (field_ofs * 4);
               "let " ^ field_name ^ "_set_int_exn x v = " ^
-                field_name ^ "_set x (Capnp.Runtime.Util.uint32_of_int_exn v)";
+                field_name ^ "_set x (Zap.Runtime.Util.uint32_of_int_exn v)";
             ] in
             (getters, setters)
         | (PS.Type.Uint64, PS.Value.Uint64 a) ->
@@ -912,7 +912,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 default
                 (field_ofs * 8);
               "let " ^ field_name ^ "_get_int_exn x =";
-              "  Capnp.Runtime.Util.int_of_uint64_exn (" ^ field_name ^ "_get x)";
+              "  Zap.Runtime.Util.int_of_uint64_exn (" ^ field_name ^ "_get x)";
             ] in
             let setters = [
               "let " ^ field_name ^ "_set x v =";
@@ -921,7 +921,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
                 default
                 (field_ofs * 8);
               "let " ^ field_name ^ "_set_int_exn x v = " ^
-                field_name ^ "_set x (Capnp.Runtime.Util.uint64_of_int_exn v)";
+                field_name ^ "_set x (Zap.Runtime.Util.uint64_of_int_exn v)";
             ] in
             (getters, setters)
         | (PS.Type.Float32, PS.Value.Float32 a) ->
@@ -1192,7 +1192,7 @@ let generate_one_field_accessors ~context ~node_id ~scope
   end
 
 
-(* Generate a function for unpacking a capnp union type as an OCaml variant. *)
+(* Generate a function for unpacking a zap union type as an OCaml variant. *)
 let generate_union_getter ~context ~scope ~mode struct_def fields =
   match fields with
   | [] ->
@@ -1496,7 +1496,7 @@ and generate_methods ~context ~scope ~nested_modules ~mode ~interface_node inter
   in
   let structs =
     List.map methods ~f:(fun m ->
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " = struct"] @
         apply_indent ~indent:"  " (
             make_auto m Method.Params @
@@ -1746,13 +1746,13 @@ let generate_client ~context ~nested_modules ~node_name ~interface_node interfac
     List.map methods ~f:(fun m ->
         let params = Method.(payload_module Params) ~context ~mode:Mode.Builder m in
         let results = Method.(payload_module Results) ~context ~mode:Mode.Reader m in
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " = struct"] @
         apply_indent ~indent:"  " [
           "module Params = " ^ params;
           "module Results = " ^ results;
-          "let method_id : (t, Params.t, Results.t) Capnp.RPC.MethodID.t =";
-          sprintf "  Capnp.RPC.MethodID.v ~interface_id ~method_id:%d"
+          "let method_id : (t, Params.t, Results.t) Zap.RPC.MethodID.t =";
+          sprintf "  Zap.RPC.MethodID.v ~interface_id ~method_id:%d"
             (Method.id m);
         ] @
         ["end"]
@@ -1762,14 +1762,14 @@ let generate_client ~context ~nested_modules ~node_name ~interface_node interfac
   let client =
     let method_printers =
       List.map methods ~f:(fun m ->
-          sprintf "| %d -> Some %S" (Method.id m) (Method.capnp_name m)
+          sprintf "| %d -> Some %S" (Method.id m) (Method.zap_name m)
         )
     in
     method_mods @ [
       "let method_name = function";
     ] @ apply_indent ~indent:"  " method_printers @ [
       "  | _ -> None";
-      sprintf "let () = Capnp.RPC.Registry.register ~interface_id ~name:%S method_name"
+      sprintf "let () = Zap.RPC.Registry.register ~interface_id ~name:%S method_name"
         node_name;
     ]
   in
@@ -1783,7 +1783,7 @@ let generate_service ~context ~nested_modules ~node_name ~interface_node interfa
     List.map methods ~f:(fun m ->
         let params = Method.(payload_module Params) ~context ~mode:Mode.Reader m in
         let results = Method.(payload_module Results) ~context ~mode:Mode.Builder m in
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " = struct"] @
         apply_indent ~indent:"  " [
           "module Params = " ^ params;
@@ -1796,7 +1796,7 @@ let generate_service ~context ~nested_modules ~node_name ~interface_node interfa
   let service =
     let body =
       List.map methods ~f:(fun m ->
-          let meth_mod_name = String.capitalize_ascii (Method.capnp_name m) in
+          let meth_mod_name = String.capitalize_ascii (Method.zap_name m) in
           sprintf "method virtual %s_impl : (%s.Params.t, %s.Results.t) MessageWrapper.Service.method_t"
             (Method.ocaml_name m)
             meth_mod_name

@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -67,7 +67,7 @@ module Make (NM : RPC.S) = struct
        native storage *)
     module BOps = BuilderOps.Make(NM)(NM)
 
-    (* Given a string, generate an orphaned cap'n proto List<Uint8> which contains
+    (* Given a string, generate an orphaned zap List<Uint8> which contains
        the string content. *)
     let uint8_list_of_string
         ~(null_terminated : bool)   (* true if the data is expected to end in 0 *)

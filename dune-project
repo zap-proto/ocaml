@@ -1,5 +1,5 @@
-(lang dune 2.3)
+(lang dune 2.8)
 
-(name capnp)
+(name zap)
 
 (formatting disabled)

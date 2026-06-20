@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -36,13 +36,13 @@ module Int = Base.Int
 module PS      = GenCommon.PS
 module Context = GenCommon.Context
 module Mode    = GenCommon.Mode
-module C = Capnp
+module C = Zap
 
 let sprintf = Printf.sprintf
 let apply_indent = GenCommon.apply_indent
 
 
-(* Generate a function for unpacking a capnp union type as an OCaml variant. *)
+(* Generate a function for unpacking a zap union type as an OCaml variant. *)
 let generate_union_getter ~context ~scope ~mode fields =
   match fields with
   | [] ->
@@ -383,7 +383,7 @@ let generate_method_struct ~context ~scope ~nested_modules ~mode ~interface_node
   in
   let structs =
     List.map methods ~f:(fun m ->
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " : sig"] @
         apply_indent ~indent:"  " (
             make_auto m Method.Params @
@@ -403,12 +403,12 @@ let generate_client ~context ~nested_modules ~interface_node interface_def : str
     List.map methods ~f:(fun m ->
         let params = Method.(payload_module Params) ~context ~mode:Mode.Builder m in
         let results = Method.(payload_module Results) ~context ~mode:Mode.Reader m in
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " : sig"] @
         apply_indent ~indent:"  " [
           "module Params = " ^ params;
           "module Results = " ^ results;
-          sprintf "val method_id : (t, Params.t, Results.t) Capnp.RPC.MethodID.t";
+          sprintf "val method_id : (t, Params.t, Results.t) Zap.RPC.MethodID.t";
         ] @
         ["end"]
       )
@@ -424,7 +424,7 @@ let generate_service ~context ~nested_modules ~interface_node interface_def : st
     List.map methods ~f:(fun m ->
         let params = Method.(payload_module Params) ~context ~mode:Mode.Reader m in
         let results = Method.(payload_module Results) ~context ~mode:Mode.Builder m in
-        let mod_name = String.capitalize_ascii (Method.capnp_name m) in
+        let mod_name = String.capitalize_ascii (Method.zap_name m) in
         ["module " ^ mod_name ^ " : sig"] @
         apply_indent ~indent:"  " [
           "module Params = " ^ params;
@@ -437,7 +437,7 @@ let generate_service ~context ~nested_modules ~interface_node interface_def : st
   let server =
     let body =
       List.map methods ~f:(fun m ->
-          let meth_mod_name = String.capitalize_ascii (Method.capnp_name m) in
+          let meth_mod_name = String.capitalize_ascii (Method.zap_name m) in
           sprintf "method virtual %s_impl : (%s.Params.t, %s.Results.t) MessageWrapper.Service.method_t"
             (Method.ocaml_name m)
             meth_mod_name

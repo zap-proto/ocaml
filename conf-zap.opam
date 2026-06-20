@@ -1,0 +1,23 @@
+opam-version: "2.0"
+name: "conf-zap"
+version: "1"
+synopsis: "Virtual package relying on a zap schema-compiler installation"
+description: """
+Checks that the `zap` schema compiler is available on the PATH. The OCaml
+codegen plugin (zapc-ocaml) is invoked by `zap compile -o zapc-ocaml ...`,
+so the compiler front-end must be installed separately.
+
+The compiler is built from https://github.com/zap-proto/cpp-core. It is not
+yet packaged by any OS distribution, so this conf package has no depexts; build
+and install the `zap` binary from cpp-core (or download a release) and ensure
+it is on the PATH before installing the test dependencies."""
+maintainer: "ZAP Protocol <maintainers@zap-proto.io>"
+authors: "ZAP Protocol <maintainers@zap-proto.io>"
+homepage: "https://zap-proto.io"
+bug-reports: "https://github.com/zap-proto/cpp-core/issues"
+dev-repo: "git+https://github.com/zap-proto/cpp-core.git"
+license: "BSD-2-Clause"
+flags: conf
+build: [
+  ["zap" "--version"]
+]

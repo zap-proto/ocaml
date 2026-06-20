@@ -1,5 +1,5 @@
 (* Instantiate a module for the Foo type *)
-module Foo = Foo.Make(Capnp.BytesMessage)
+module Foo = Foo.Make(Zap.BytesMessage)
 
 
 (* This is a very simple example where we create a message - encode it then decode it *)
@@ -12,14 +12,14 @@ let encode n =
   Builder.Foo.num_set rw n;
   let message = Builder.Foo.to_message rw in
   (* Then encode it into a message constructing a string with the contents *)
-  Capnp.Codecs.serialize ~compression:`None message
+  Zap.Codecs.serialize ~compression:`None message
 
 let decode_exn s =
   let open Foo in
   (* Get a stream of the bytes to deserialize *)
-  let stream = Capnp.Codecs.FramedStream.of_string ~compression:`None s in
+  let stream = Zap.Codecs.FramedStream.of_string ~compression:`None s in
   (* Attempt to get the next frame from the stream in the form of a Message *)
-  let res = Capnp.Codecs.FramedStream.get_next_frame stream in 
+  let res = Zap.Codecs.FramedStream.get_next_frame stream in 
   match res with
   | Result.Ok message -> Reader.Foo.of_message message
   | Result.Error _ -> failwith "Could not extract frame"

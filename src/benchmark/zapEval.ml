@@ -1,5 +1,5 @@
 
-module E = Eval.Make(Capnp.BytesMessage)
+module E = Eval.Make(Zap.BytesMessage)
 
 module Int32 = Base.Int32
 

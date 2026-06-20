@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -30,11 +30,11 @@
 module Exn = Base.Exn
 module In_channel = Stdio.In_channel
 
-open Capnp
+open Zap
 
 module M  = BytesMessage
 module PS = GenCommon.PS
-module IO = Capnp_unix.IO
+module IO = Zap_unix.IO
 
 module ExitCode = struct
   let success       = 0

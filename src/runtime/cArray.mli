@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -29,7 +29,7 @@
 
 (** The Array module provides a polymorphic container which is similar in spirit
     to the standard OCaml array, and which has similar performance characteristics,
-    but which uses a Cap'n Proto list for the underlying storage. *)
+    but which uses a ZAP list for the underlying storage. *)
 
 type ro = Message.ro
 type rw = Message.rw

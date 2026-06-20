@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -35,7 +35,7 @@ module Hashtbl = Base.Hashtbl
 module Out_channel = Stdio.Out_channel
 
 module PS   = GenCommon.PS
-module C    = Capnp
+module C    = Zap
 
 module Context = GenCommon.Context
 module Mode    = GenCommon.Mode
@@ -44,11 +44,11 @@ module Mode    = GenCommon.Mode
 let sig_s_header ~context = [
   "[@@@ocaml.warning \"-27-32-37-60\"]";
   "";
-  "type ro = Capnp.Message.ro";
-  "type rw = Capnp.Message.rw";
+  "type ro = Zap.Message.ro";
+  "type rw = Zap.Message.rw";
   "";
   "module type S = sig";
-  "  module MessageWrapper : Capnp.RPC.S";
+  "  module MessageWrapper : Zap.RPC.S";
   "  type 'cap message_t = 'cap MessageWrapper.Message.t";
   "  type 'a reader_t = 'a MessageWrapper.StructStorage.reader_t";
   "  type 'a builder_t = 'a MessageWrapper.StructStorage.builder_t";
@@ -101,7 +101,7 @@ let sig_s_footer = [
 
 
 let functor_sig ~context ~rpc = [
-  "module MakeRPC(MessageWrapper : Capnp.RPC.S) : sig";
+  "module MakeRPC(MessageWrapper : Zap.RPC.S) : sig";
   "  include S with module MessageWrapper = MessageWrapper"; ] @
   (List.concat_map context.Context.imports ~f:(fun import -> [
         "    and module " ^ import.Context.schema_name ^ " = " ^
@@ -109,20 +109,20 @@ let functor_sig ~context ~rpc = [
   ])) @ rpc @ [
   "end";
   "";
-  "module Make(M : Capnp.MessageSig.S) : module type of MakeRPC(Capnp.RPC.None(M))";
+  "module Make(M : Zap.MessageSig.S) : module type of MakeRPC(Zap.RPC.None(M))";
 ]
 
 let mod_functor_header = [
-  "module MakeRPC(MessageWrapper : Capnp.RPC.S) = struct";
+  "module MakeRPC(MessageWrapper : Zap.RPC.S) = struct";
   "  type 'a reader_t = 'a MessageWrapper.StructStorage.reader_t";
   "  type 'a builder_t = 'a MessageWrapper.StructStorage.builder_t";
   "  module CamlBytes = Bytes";
 ]
 
 let mod_header ~context = [
-  "  let invalid_msg = Capnp.Message.invalid_msg";
+  "  let invalid_msg = Zap.Message.invalid_msg";
   "";
-  "  include Capnp.Runtime.BuilderInc.Make(MessageWrapper)";
+  "  include Zap.Runtime.BuilderInc.Make(MessageWrapper)";
   "";
   "  type 'cap message_t = 'cap MessageWrapper.Message.t";
   ""; ] @ (List.concat_map context.Context.imports ~f:(fun import -> [
@@ -171,7 +171,7 @@ let mod_functor_footer = [
   "  module MessageWrapper = MessageWrapper";
   "end";
   "";
-  "module Make(M:Capnp.MessageSig.S) = MakeRPC(Capnp.RPC.None(M))";
+  "module Make(M:Zap.MessageSig.S) = MakeRPC(Zap.RPC.None(M))";
 ]
 
 

@@ -1,4 +1,4 @@
-module Shape = Shape.Make(Capnp.BytesMessage)
+module Shape = Shape.Make(Zap.BytesMessage)
 
 let rect_str =
   let open Shape in
@@ -8,7 +8,7 @@ let rect_str =
   Builder.Shape.Rectangle.width_set rect 10.0;
   Builder.Shape.Rectangle.height_set rect 15.0;
   let message = Builder.Shape.to_message rw in 
-  Capnp.Codecs.serialize ~compression:`None message
+  Zap.Codecs.serialize ~compression:`None message
 
 let circle_str =
   let open Shape in
@@ -17,7 +17,7 @@ let circle_str =
   let circle = Builder.Shape.circle_init rw in 
   Builder.Shape.Circle.radius_set circle 3.0;
   let message = Builder.Shape.to_message rw in 
-  Capnp.Codecs.serialize ~compression:`None message
+  Zap.Codecs.serialize ~compression:`None message
 
 
 let colour_to_string c =
@@ -30,8 +30,8 @@ let colour_to_string c =
 
 let decode_exn shape_str = 
   let open Shape in
-  let stream = Capnp.Codecs.FramedStream.of_string ~compression:`None shape_str in 
-  let res = Capnp.Codecs.FramedStream.get_next_frame stream in 
+  let stream = Zap.Codecs.FramedStream.of_string ~compression:`None shape_str in 
+  let res = Zap.Codecs.FramedStream.get_next_frame stream in 
   let shape = match res with 
     | Result.Ok message -> Reader.Shape.of_message message 
     | Result.Error _ -> failwith "Could not read string"

@@ -1,5 +1,5 @@
 
-module CS = Carsales.Make(Capnp.BytesMessage)
+module CS = Carsales.Make(Zap.BytesMessage)
 
 module TestCase = struct
   type request_t     = CS.Reader.ParkingLot.struct_t
@@ -31,13 +31,13 @@ module TestCase = struct
     let result = result + (doors_get car) * 350 in
 
     let wheels_value =
-      (* Capnp.Array.fold would be more elegant, but creates a closure
+      (* Zap.Array.fold would be more elegant, but creates a closure
          for every wheel. *)
       let wv = ref 0 in
       let wheels = wheels_get car in
-      let num_wheels = Capnp.Array.length wheels in
+      let num_wheels = Zap.Array.length wheels in
       for i = 0 to num_wheels - 1 do
-        let wheel = Capnp.Array.get wheels i in
+        let wheel = Zap.Array.get wheels i in
         let diam  = CS.Reader.Wheel.diameter_get wheel in
         let diam2 = diam * diam in
         let st = if CS.Reader.Wheel.snow_tires_get wheel then 100 else 0 in
@@ -81,10 +81,10 @@ module TestCase = struct
     doors_set_exn car (2 + (FastRand.int 3));
 
     let wheels = wheels_init car 4 in
-    (* Capnp.Array.iter would be more elegant, but creates a
+    (* Zap.Array.iter would be more elegant, but creates a
        closure for every wheel. *)
     for i = 0 to 3 do
-      let wheel = Capnp.Array.get wheels i in
+      let wheel = Zap.Array.get wheels i in
       CS.Builder.Wheel.diameter_set_exn wheel (25 + (FastRand.int 15));
       CS.Builder.Wheel.air_pressure_set wheel (30.0 +. (FastRand.double 20.0));
       CS.Builder.Wheel.snow_tires_set wheel (FastRand.int 16 = 0)
@@ -120,7 +120,7 @@ module TestCase = struct
     let cars = CS.Builder.ParkingLot.cars_init builder num_cars in
     let total_value = ref 0 in
     for i = 0 to num_cars - 1 do
-      let car = Capnp.Array.get cars i in
+      let car = Zap.Array.get cars i in
       let () = random_car car in
       total_value := !total_value + (car_value (CS.Reader.Car.of_builder car))
     done;
@@ -130,10 +130,10 @@ module TestCase = struct
   let handle_request parking_lot =
     let total_value = CS.Builder.TotalValue.init_root () in
     let cars = CS.Reader.ParkingLot.cars_get parking_lot in
-    let num_cars = Capnp.Array.length cars in
+    let num_cars = Zap.Array.length cars in
     let result = ref 0 in
     for i = 0 to num_cars - 1 do
-      let car = Capnp.Array.get cars i in
+      let car = Zap.Array.get cars i in
       result := !result + (car_value car)
     done;
     let () = CS.Builder.TotalValue.amount_set_int_exn total_value !result in

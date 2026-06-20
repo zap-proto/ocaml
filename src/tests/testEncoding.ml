@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************)
 
-(* Inspired by encoding-test.c++, as found in the capnproto source. *)
+(* Inspired by encoding-test.c++, as found in the zap source. *)
 
 module Uint32 = Stdint.Uint32
 module Uint64 = Stdint.Uint64
@@ -37,7 +37,7 @@ module Int64 = Base.Int64
 module Float = Base.Float
 module List = Base.List
 
-module BM  = Capnp.BytesMessage
+module BM  = Zap.BytesMessage
 module T   = Test.Make(BM)
 module TL  = TestLists.Make(BM)
 module TI  = Test_import.Make(BM)
@@ -67,7 +67,7 @@ let assert_raises_out_of_int_range f =
   try
     let _ = f () in
     assert_failure "did not raise Out_of_int_range"
-  with Capnp.Message.Out_of_int_range _ ->
+  with Zap.Message.Out_of_int_range _ ->
     ()
 
 
@@ -138,9 +138,9 @@ let init_test_message (s : T.Builder.TestAllTypes.t) : unit =
     let _ = data_list_set_list sub [ "garply"; "waldo"; "fred" ] in
     let () =
       let list_builder = struct_list_init sub 3 in
-      text_field_set (Capnp.Array.get list_builder 0) "x structlist 1";
-      text_field_set (Capnp.Array.get list_builder 1) "x structlist 2";
-      text_field_set (Capnp.Array.get list_builder 2) "x structlist 3"
+      text_field_set (Zap.Array.get list_builder 0) "x structlist 1";
+      text_field_set (Zap.Array.get list_builder 1) "x structlist 2";
+      text_field_set (Zap.Array.get list_builder 2) "x structlist 3"
     in
     let _ = enum_list_set_list sub
         [ T.Builder.TestEnum.Qux; T.Builder.TestEnum.Bar; T.Builder.TestEnum.Grault ]
@@ -165,9 +165,9 @@ let init_test_message (s : T.Builder.TestAllTypes.t) : unit =
   let _ = data_list_set_list s [ "oops"; "exhausted"; "rfc3092" ] in
   let () =
     let list_builder = struct_list_init s 3 in
-    text_field_set (Capnp.Array.get list_builder 0) "structlist 1";
-    text_field_set (Capnp.Array.get list_builder 1) "structlist 2";
-    text_field_set (Capnp.Array.get list_builder 2) "structlist 3"
+    text_field_set (Zap.Array.get list_builder 0) "structlist 1";
+    text_field_set (Zap.Array.get list_builder 1) "structlist 2";
+    text_field_set (Zap.Array.get list_builder 2) "structlist 3"
   in
   let _ = enum_list_set_list s [ T.Builder.TestEnum.Foo; T.Builder.TestEnum.Garply ] in
   ()
@@ -208,71 +208,71 @@ module type TEST_ALL_TYPES = sig
   val enum_field_get : t -> T.Reader.TestEnum.t
   val interface_field_get : t -> unit
   val has_void_list : t -> bool
-  val void_list_get : t -> (access, unit, array_t) Capnp.Array.t
+  val void_list_get : t -> (access, unit, array_t) Zap.Array.t
   val void_list_get_list : t -> unit list
   val void_list_get_array : t -> unit array
   val has_bool_list : t -> bool
-  val bool_list_get : t -> (access, bool, array_t) Capnp.Array.t
+  val bool_list_get : t -> (access, bool, array_t) Zap.Array.t
   val bool_list_get_list : t -> bool list
   val bool_list_get_array : t -> bool array
   val has_int8_list : t -> bool
-  val int8_list_get : t -> (access, int, array_t) Capnp.Array.t
+  val int8_list_get : t -> (access, int, array_t) Zap.Array.t
   val int8_list_get_list : t -> int list
   val int8_list_get_array : t -> int array
   val has_int16_list : t -> bool
-  val int16_list_get : t -> (access, int, array_t) Capnp.Array.t
+  val int16_list_get : t -> (access, int, array_t) Zap.Array.t
   val int16_list_get_list : t -> int list
   val int16_list_get_array : t -> int array
   val has_int32_list : t -> bool
-  val int32_list_get : t -> (access, int32, array_t) Capnp.Array.t
+  val int32_list_get : t -> (access, int32, array_t) Zap.Array.t
   val int32_list_get_list : t -> int32 list
   val int32_list_get_array : t -> int32 array
   val has_int64_list : t -> bool
-  val int64_list_get : t -> (access, int64, array_t) Capnp.Array.t
+  val int64_list_get : t -> (access, int64, array_t) Zap.Array.t
   val int64_list_get_list : t -> int64 list
   val int64_list_get_array : t -> int64 array
   val has_u_int8_list : t -> bool
-  val u_int8_list_get : t -> (access, int, array_t) Capnp.Array.t
+  val u_int8_list_get : t -> (access, int, array_t) Zap.Array.t
   val u_int8_list_get_list : t -> int list
   val u_int8_list_get_array : t -> int array
   val has_u_int16_list : t -> bool
-  val u_int16_list_get : t -> (access, int, array_t) Capnp.Array.t
+  val u_int16_list_get : t -> (access, int, array_t) Zap.Array.t
   val u_int16_list_get_list : t -> int list
   val u_int16_list_get_array : t -> int array
   val has_u_int32_list : t -> bool
-  val u_int32_list_get : t -> (access, Uint32.t, array_t) Capnp.Array.t
+  val u_int32_list_get : t -> (access, Uint32.t, array_t) Zap.Array.t
   val u_int32_list_get_list : t -> Uint32.t list
   val u_int32_list_get_array : t -> Uint32.t array
   val has_u_int64_list : t -> bool
-  val u_int64_list_get : t -> (access, Uint64.t, array_t) Capnp.Array.t
+  val u_int64_list_get : t -> (access, Uint64.t, array_t) Zap.Array.t
   val u_int64_list_get_list : t -> Uint64.t list
   val u_int64_list_get_array : t -> Uint64.t array
   val has_float32_list : t -> bool
-  val float32_list_get : t -> (access, float, array_t) Capnp.Array.t
+  val float32_list_get : t -> (access, float, array_t) Zap.Array.t
   val float32_list_get_list : t -> float list
   val float32_list_get_array : t -> float array
   val has_float64_list : t -> bool
-  val float64_list_get : t -> (access, float, array_t) Capnp.Array.t
+  val float64_list_get : t -> (access, float, array_t) Zap.Array.t
   val float64_list_get_list : t -> float list
   val float64_list_get_array : t -> float array
   val has_text_list : t -> bool
-  val text_list_get : t -> (access, string, array_t) Capnp.Array.t
+  val text_list_get : t -> (access, string, array_t) Zap.Array.t
   val text_list_get_list : t -> string list
   val text_list_get_array : t -> string array
   val has_data_list : t -> bool
-  val data_list_get : t -> (access, string, array_t) Capnp.Array.t
+  val data_list_get : t -> (access, string, array_t) Zap.Array.t
   val data_list_get_list : t -> string list
   val data_list_get_array : t -> string array
   val has_struct_list : t -> bool
-  val struct_list_get : t -> (access, inner_struct_t, array_t) Capnp.Array.t
+  val struct_list_get : t -> (access, inner_struct_t, array_t) Zap.Array.t
   val struct_list_get_list : t -> inner_struct_t list
   val struct_list_get_array : t -> inner_struct_t array
   val has_enum_list : t -> bool
-  val enum_list_get : t -> (access, T.Reader.TestEnum.t, array_t) Capnp.Array.t
+  val enum_list_get : t -> (access, T.Reader.TestEnum.t, array_t) Zap.Array.t
   val enum_list_get_list : t -> T.Reader.TestEnum.t list
   val enum_list_get_array : t -> T.Reader.TestEnum.t array
   val has_interface_list : t -> bool
-  val interface_list_get : t -> (access, unit, array_t) Capnp.Array.t
+  val interface_list_get : t -> (access, unit, array_t) Zap.Array.t
   val interface_list_get_list : t -> unit list
   val interface_list_get_array : t -> unit array
   val of_message : message_access message_t -> t
@@ -355,17 +355,17 @@ module Check_test_message
       assert_equal [ "garply"; "waldo"; "fred" ] (data_list_get_list sub);
       let () =
         let list_reader = struct_list_get sub in
-        assert_equal 3 (Capnp.Array.length list_reader);
-        assert_equal "x structlist 1" (text_field_get (Capnp.Array.get list_reader 0));
-        assert_equal "x structlist 2" (text_field_get (Capnp.Array.get list_reader 1));
-        assert_equal "x structlist 3" (text_field_get (Capnp.Array.get list_reader 2))
+        assert_equal 3 (Zap.Array.length list_reader);
+        assert_equal "x structlist 1" (text_field_get (Zap.Array.get list_reader 0));
+        assert_equal "x structlist 2" (text_field_get (Zap.Array.get list_reader 1));
+        assert_equal "x structlist 3" (text_field_get (Zap.Array.get list_reader 2))
       in
       assert_equal
         [ T.Reader.TestEnum.Qux; T.Reader.TestEnum.Bar;
           T.Reader.TestEnum.Grault ]
         (enum_list_get_list sub)
     in
-    assert_equal 6 (Capnp.Array.length (void_list_get s));
+    assert_equal 6 (Zap.Array.length (void_list_get s));
     assert_equal [ true; false; false; true ] (bool_list_get_list s);
     assert_equal [ 111; -111 ] (int8_list_get_list s);
     assert_equal [ 11111; -11111 ] (int16_list_get_list s);
@@ -377,29 +377,29 @@ module Check_test_message
     assert_equal [ Uint64.of_string "11111111111111111111" ] (u_int64_list_get_list s);
     let () =
       let list_reader = float32_list_get s in
-      assert_equal 4 (Capnp.Array.length list_reader);
-      assert_float32_equal 5555.5 (Capnp.Array.get list_reader 0);
-      assert_equal Float.infinity (Capnp.Array.get list_reader 1);
-      assert_equal Float.neg_infinity (Capnp.Array.get list_reader 2);
-      assert_equal (compare Float.nan (Capnp.Array.get list_reader 3)) 0
+      assert_equal 4 (Zap.Array.length list_reader);
+      assert_float32_equal 5555.5 (Zap.Array.get list_reader 0);
+      assert_equal Float.infinity (Zap.Array.get list_reader 1);
+      assert_equal Float.neg_infinity (Zap.Array.get list_reader 2);
+      assert_equal (compare Float.nan (Zap.Array.get list_reader 3)) 0
     in
     let () =
       let list_reader = float64_list_get s in
-      assert_equal 4 (Capnp.Array.length list_reader);
-      assert_float64_equal 7777.75 (Capnp.Array.get list_reader 0);
-      assert_equal Float.infinity (Capnp.Array.get list_reader 1);
-      assert_equal Float.neg_infinity (Capnp.Array.get list_reader 2);
-      assert_equal (compare Float.nan (Capnp.Array.get list_reader 3)) 0
+      assert_equal 4 (Zap.Array.length list_reader);
+      assert_float64_equal 7777.75 (Zap.Array.get list_reader 0);
+      assert_equal Float.infinity (Zap.Array.get list_reader 1);
+      assert_equal Float.neg_infinity (Zap.Array.get list_reader 2);
+      assert_equal (compare Float.nan (Zap.Array.get list_reader 3)) 0
     in
     assert_equal [ "plugh"; "xyzzy"; "thud" ] (text_list_get_list s);
     assert_equal [ "oops"; "exhausted"; "rfc3092" ] (data_list_get_list s);
     let () =
       let list_reader = struct_list_get s in
       let open Inner in
-      assert_equal 3 (Capnp.Array.length list_reader);
-      assert_equal "structlist 1" (text_field_get (Capnp.Array.get list_reader 0));
-      assert_equal "structlist 2" (text_field_get (Capnp.Array.get list_reader 1));
-      assert_equal "structlist 3" (text_field_get (Capnp.Array.get list_reader 2))
+      assert_equal 3 (Zap.Array.length list_reader);
+      assert_equal "structlist 1" (text_field_get (Zap.Array.get list_reader 0));
+      assert_equal "structlist 2" (text_field_get (Zap.Array.get list_reader 1));
+      assert_equal "structlist 3" (text_field_get (Zap.Array.get list_reader 2))
     in
     assert_equal [ T.Reader.TestEnum.Foo; T.Reader.TestEnum.Garply ] (enum_list_get_list s)
 end
@@ -936,45 +936,45 @@ module type TEST_LISTS = sig
     val of_message : message_access message_t -> t
   end
   val has_list0 : t -> bool
-  val list0_get : t -> (access, Struct0.t, array_t) Capnp.Array.t
+  val list0_get : t -> (access, Struct0.t, array_t) Zap.Array.t
   val list0_get_list : t -> Struct0.t list
   val list0_get_array : t -> Struct0.t array
   val has_list1 : t -> bool
-  val list1_get : t -> (access, Struct1.t, array_t) Capnp.Array.t
+  val list1_get : t -> (access, Struct1.t, array_t) Zap.Array.t
   val list1_get_list : t -> Struct1.t list
   val list1_get_array : t -> Struct1.t array
   val has_list8 : t -> bool
-  val list8_get : t -> (access, Struct8.t, array_t) Capnp.Array.t
+  val list8_get : t -> (access, Struct8.t, array_t) Zap.Array.t
   val list8_get_list : t -> Struct8.t list
   val list8_get_array : t -> Struct8.t array
   val has_list16 : t -> bool
-  val list16_get : t -> (access, Struct16.t, array_t) Capnp.Array.t
+  val list16_get : t -> (access, Struct16.t, array_t) Zap.Array.t
   val list16_get_list : t -> Struct16.t list
   val list16_get_array : t -> Struct16.t array
   val has_list32 : t -> bool
-  val list32_get : t -> (access, Struct32.t, array_t) Capnp.Array.t
+  val list32_get : t -> (access, Struct32.t, array_t) Zap.Array.t
   val list32_get_list : t -> Struct32.t list
   val list32_get_array : t -> Struct32.t array
   val has_list64 : t -> bool
-  val list64_get : t -> (access, Struct64.t, array_t) Capnp.Array.t
+  val list64_get : t -> (access, Struct64.t, array_t) Zap.Array.t
   val list64_get_list : t -> Struct64.t list
   val list64_get_array : t -> Struct64.t array
   val has_list_p : t -> bool
-  val list_p_get : t -> (access, StructP.t, array_t) Capnp.Array.t
+  val list_p_get : t -> (access, StructP.t, array_t) Zap.Array.t
   val list_p_get_list : t -> StructP.t list
   val list_p_get_array : t -> StructP.t array
   val has_int32_list_list : t -> bool
-  val int32_list_list_get : t -> (access, (access, int32, array_t) Capnp.Array.t, array_t) Capnp.Array.t
-  val int32_list_list_get_list : t -> (access, int32, array_t) Capnp.Array.t list
-  val int32_list_list_get_array : t -> (access, int32, array_t) Capnp.Array.t array
+  val int32_list_list_get : t -> (access, (access, int32, array_t) Zap.Array.t, array_t) Zap.Array.t
+  val int32_list_list_get_list : t -> (access, int32, array_t) Zap.Array.t list
+  val int32_list_list_get_array : t -> (access, int32, array_t) Zap.Array.t array
   val has_text_list_list : t -> bool
-  val text_list_list_get : t -> (access, (access, string, array_t) Capnp.Array.t, array_t) Capnp.Array.t
-  val text_list_list_get_list : t -> (access, string, array_t) Capnp.Array.t list
-  val text_list_list_get_array : t -> (access, string, array_t) Capnp.Array.t array
+  val text_list_list_get : t -> (access, (access, string, array_t) Zap.Array.t, array_t) Zap.Array.t
+  val text_list_list_get_list : t -> (access, string, array_t) Zap.Array.t list
+  val text_list_list_get_array : t -> (access, string, array_t) Zap.Array.t array
   val has_struct_list_list : t -> bool
-  val struct_list_list_get : t -> (access, (access, test_all_types_t, array_t) Capnp.Array.t, array_t) Capnp.Array.t
-  val struct_list_list_get_list : t -> (access, test_all_types_t, array_t) Capnp.Array.t list
-  val struct_list_list_get_array : t -> (access, test_all_types_t, array_t) Capnp.Array.t array
+  val struct_list_list_get : t -> (access, (access, test_all_types_t, array_t) Zap.Array.t, array_t) Zap.Array.t
+  val struct_list_list_get_list : t -> (access, test_all_types_t, array_t) Zap.Array.t list
+  val struct_list_list_get_array : t -> (access, test_all_types_t, array_t) Zap.Array.t array
   val of_message : message_access message_t -> t
 end
 
@@ -997,48 +997,48 @@ let init_list_defaults (lists : T.Builder.TestLists.t) =
   let listp  = list_p_init lists 2 in
 
   (*
-  Struct0.f_set (Capnp.Array.get list0 0);
-  Struct0.f_set (Capnp.Array.get list0 1);
-  Struct1.f_set (Capnp.Array.get list1 0) true;
-  Struct1.f_set (Capnp.Array.get list1 1) false;
-  Struct1.f_set (Capnp.Array.get list1 2) true;
-  Struct1.f_set (Capnp.Array.get list1 3) true;
+  Struct0.f_set (Zap.Array.get list0 0);
+  Struct0.f_set (Zap.Array.get list0 1);
+  Struct1.f_set (Zap.Array.get list1 0) true;
+  Struct1.f_set (Zap.Array.get list1 1) false;
+  Struct1.f_set (Zap.Array.get list1 2) true;
+  Struct1.f_set (Zap.Array.get list1 3) true;
   *)
-  Struct8.f_set_exn (Capnp.Array.get list8 0) 123;
-  Struct8.f_set_exn (Capnp.Array.get list8 1) 45;
-  Struct16.f_set_exn (Capnp.Array.get list16 0) 12345;
-  Struct16.f_set_exn (Capnp.Array.get list16 1) 6789;
-  Struct32.f_set (Capnp.Array.get list32 0) (Uint32.of_string "123456789");
-  Struct32.f_set (Capnp.Array.get list32 1) (Uint32.of_string "234567890");
-  Struct64.f_set (Capnp.Array.get list64 0) (Uint64.of_string "1234567890123456");
-  Struct64.f_set (Capnp.Array.get list64 1) (Uint64.of_string "2345678901234567");
-  StructP.f_set (Capnp.Array.get listp 0) "foo";
-  StructP.f_set (Capnp.Array.get listp 1) "bar";
+  Struct8.f_set_exn (Zap.Array.get list8 0) 123;
+  Struct8.f_set_exn (Zap.Array.get list8 1) 45;
+  Struct16.f_set_exn (Zap.Array.get list16 0) 12345;
+  Struct16.f_set_exn (Zap.Array.get list16 1) 6789;
+  Struct32.f_set (Zap.Array.get list32 0) (Uint32.of_string "123456789");
+  Struct32.f_set (Zap.Array.get list32 1) (Uint32.of_string "234567890");
+  Struct64.f_set (Zap.Array.get list64 0) (Uint64.of_string "1234567890123456");
+  Struct64.f_set (Zap.Array.get list64 1) (Uint64.of_string "2345678901234567");
+  StructP.f_set (Zap.Array.get listp 0) "foo";
+  StructP.f_set (Zap.Array.get listp 1) "bar";
 
   let () =
     let a = int32_list_list_init lists 3 in
-    Capnp.Array.set_list (Capnp.Array.get a 0) [ 1l; 2l; 3l ];
-    Capnp.Array.set_list (Capnp.Array.get a 1) [ 4l; 5l ];
-    Capnp.Array.set_list (Capnp.Array.get a 2) [ 12341234l ]
+    Zap.Array.set_list (Zap.Array.get a 0) [ 1l; 2l; 3l ];
+    Zap.Array.set_list (Zap.Array.get a 1) [ 4l; 5l ];
+    Zap.Array.set_list (Zap.Array.get a 2) [ 12341234l ]
   in
   let () =
     let a = text_list_list_init lists 3 in
-    Capnp.Array.set_array (Capnp.Array.get a 0) [| "foo"; "bar" |];
-    Capnp.Array.set_array (Capnp.Array.get a 1) [| "baz" |];
-    Capnp.Array.set_array (Capnp.Array.get a 2) [| "qux"; "corge" |]
+    Zap.Array.set_array (Zap.Array.get a 0) [| "foo"; "bar" |];
+    Zap.Array.set_array (Zap.Array.get a 1) [| "baz" |];
+    Zap.Array.set_array (Zap.Array.get a 2) [| "qux"; "corge" |]
   in
   let () =
     let a = struct_list_list_init lists 2 in
     let () =
-      let a0 = Capnp.Array.get a 0 in
-      Capnp.Array.init a0 2;
-      T.Builder.TestAllTypes.int32_field_set (Capnp.Array.get a0 0) 123l;
-      T.Builder.TestAllTypes.int32_field_set (Capnp.Array.get a0 1) 456l
+      let a0 = Zap.Array.get a 0 in
+      Zap.Array.init a0 2;
+      T.Builder.TestAllTypes.int32_field_set (Zap.Array.get a0 0) 123l;
+      T.Builder.TestAllTypes.int32_field_set (Zap.Array.get a0 1) 456l
     in
     let () =
-      let a1 = Capnp.Array.get a 1 in
-      Capnp.Array.init a1 1;
-      T.Builder.TestAllTypes.int32_field_set (Capnp.Array.get a1 0) 789l
+      let a1 = Zap.Array.get a 1 in
+      Zap.Array.init a1 1;
+      T.Builder.TestAllTypes.int32_field_set (Zap.Array.get a1 0) 789l
     in
     ()
   in
@@ -1055,62 +1055,62 @@ module Check_test_list
        lists of single field structs of Void or Bool as List<Void>/List<Bool>. *)
 
     (*
-    assert_equal 2 (Capnp.Array.length (TL.list0_get lists));
-    assert_equal 4 (Capnp.Array.length (TL.list1_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list0_get lists));
+    assert_equal 4 (Zap.Array.length (TL.list1_get lists));
     *)
-    assert_equal 2 (Capnp.Array.length (TL.list8_get lists));
-    assert_equal 2 (Capnp.Array.length (TL.list16_get lists));
-    assert_equal 2 (Capnp.Array.length (TL.list32_get lists));
-    assert_equal 2 (Capnp.Array.length (TL.list64_get lists));
-    assert_equal 2 (Capnp.Array.length (TL.list_p_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list8_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list16_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list32_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list64_get lists));
+    assert_equal 2 (Zap.Array.length (TL.list_p_get lists));
 
     (*
-    assert_equal () (TL.Struct0.f_get (Capnp.Array.get (TL.list0_get lists) 0));
-    assert_equal () (TL.Struct0.f_get (Capnp.Array.get (TL.list0_get lists) 1));
-    assert_equal true  (TL.Struct1.f_get (Capnp.Array.get (TL.list1_get lists) 0));
-    assert_equal false (TL.Struct1.f_get (Capnp.Array.get (TL.list1_get lists) 1));
-    assert_equal true  (TL.Struct1.f_get (Capnp.Array.get (TL.list1_get lists) 2));
-    assert_equal true  (TL.Struct1.f_get (Capnp.Array.get (TL.list1_get lists) 3));
+    assert_equal () (TL.Struct0.f_get (Zap.Array.get (TL.list0_get lists) 0));
+    assert_equal () (TL.Struct0.f_get (Zap.Array.get (TL.list0_get lists) 1));
+    assert_equal true  (TL.Struct1.f_get (Zap.Array.get (TL.list1_get lists) 0));
+    assert_equal false (TL.Struct1.f_get (Zap.Array.get (TL.list1_get lists) 1));
+    assert_equal true  (TL.Struct1.f_get (Zap.Array.get (TL.list1_get lists) 2));
+    assert_equal true  (TL.Struct1.f_get (Zap.Array.get (TL.list1_get lists) 3));
     *)
-    assert_equal 123 (TL.Struct8.f_get (Capnp.Array.get (TL.list8_get lists) 0));
-    assert_equal 45  (TL.Struct8.f_get (Capnp.Array.get (TL.list8_get lists) 1));
-    assert_equal 12345 (TL.Struct16.f_get (Capnp.Array.get (TL.list16_get lists) 0));
-    assert_equal 6789  (TL.Struct16.f_get (Capnp.Array.get (TL.list16_get lists) 1));
+    assert_equal 123 (TL.Struct8.f_get (Zap.Array.get (TL.list8_get lists) 0));
+    assert_equal 45  (TL.Struct8.f_get (Zap.Array.get (TL.list8_get lists) 1));
+    assert_equal 12345 (TL.Struct16.f_get (Zap.Array.get (TL.list16_get lists) 0));
+    assert_equal 6789  (TL.Struct16.f_get (Zap.Array.get (TL.list16_get lists) 1));
     assert_equal (Uint32.of_string "123456789")
-      (TL.Struct32.f_get (Capnp.Array.get (TL.list32_get lists) 0));
+      (TL.Struct32.f_get (Zap.Array.get (TL.list32_get lists) 0));
     assert_equal (Uint32.of_string "234567890")
-      (TL.Struct32.f_get (Capnp.Array.get (TL.list32_get lists) 1));
+      (TL.Struct32.f_get (Zap.Array.get (TL.list32_get lists) 1));
     assert_equal (Uint64.of_string "1234567890123456")
-      (TL.Struct64.f_get (Capnp.Array.get (TL.list64_get lists) 0));
+      (TL.Struct64.f_get (Zap.Array.get (TL.list64_get lists) 0));
     assert_equal (Uint64.of_string "2345678901234567")
-      (TL.Struct64.f_get (Capnp.Array.get (TL.list64_get lists) 1));
-    assert_equal "foo" (TL.StructP.f_get (Capnp.Array.get (TL.list_p_get lists) 0));
-    assert_equal "bar" (TL.StructP.f_get (Capnp.Array.get (TL.list_p_get lists) 1));
+      (TL.Struct64.f_get (Zap.Array.get (TL.list64_get lists) 1));
+    assert_equal "foo" (TL.StructP.f_get (Zap.Array.get (TL.list_p_get lists) 0));
+    assert_equal "bar" (TL.StructP.f_get (Zap.Array.get (TL.list_p_get lists) 1));
 
     let () =
       let a = TL.int32_list_list_get lists in
-      assert_equal 3 (Capnp.Array.length a);
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 0)) [ 1l; 2l; 3l ];
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 1)) [ 4l; 5l ];
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 2)) [ 12341234l ]
+      assert_equal 3 (Zap.Array.length a);
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 0)) [ 1l; 2l; 3l ];
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 1)) [ 4l; 5l ];
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 2)) [ 12341234l ]
     in
     let () =
       let a = TL.text_list_list_get lists in
-      assert_equal 3 (Capnp.Array.length a);
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 0)) [ "foo"; "bar" ];
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 1)) [ "baz" ];
-      assert_equal (Capnp.Array.to_list (Capnp.Array.get a 2)) [ "qux"; "corge" ]
+      assert_equal 3 (Zap.Array.length a);
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 0)) [ "foo"; "bar" ];
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 1)) [ "baz" ];
+      assert_equal (Zap.Array.to_list (Zap.Array.get a 2)) [ "qux"; "corge" ]
     in
     let () =
       let a = TL.struct_list_list_get lists in
-      assert_equal 2 (Capnp.Array.length a);
-      let e0 = Capnp.Array.get a 0 in
-      assert_equal 2 (Capnp.Array.length e0);
-      assert_equal 123l (TAT.int32_field_get (Capnp.Array.get e0 0));
-      assert_equal 456l (TAT.int32_field_get (Capnp.Array.get e0 1));
-      let e1 = Capnp.Array.get a 1 in
-      assert_equal 1 (Capnp.Array.length e1);
-      assert_equal 789l (TAT.int32_field_get (Capnp.Array.get e1 0))
+      assert_equal 2 (Zap.Array.length a);
+      let e0 = Zap.Array.get a 0 in
+      assert_equal 2 (Zap.Array.length e0);
+      assert_equal 123l (TAT.int32_field_get (Zap.Array.get e0 0));
+      assert_equal 456l (TAT.int32_field_get (Zap.Array.get e0 1));
+      let e1 = Zap.Array.get a 1 in
+      assert_equal 1 (Zap.Array.length e1);
+      assert_equal 789l (TAT.int32_field_get (Zap.Array.get e1 0))
     in
     ()
 end
@@ -1244,11 +1244,11 @@ let check_upgraded_list message expected_data expected_pointers =
   let () =
     let tnvl = TL.Builder.TestNewVersionList.of_message message in
     let builder_list = TL.Builder.TestNewVersionList.a_get tnvl in
-    assert_equal (Capnp.Array.length builder_list) (Array.length expected_data);
+    assert_equal (Zap.Array.length builder_list) (Array.length expected_data);
     let module R = T.Reader.TestNewVersion in
     let module B = T.Builder.TestNewVersion in
     for i = 0 to Array.length expected_data - 1 do
-      let builder = Capnp.Array.get builder_list i in
+      let builder = Zap.Array.get builder_list i in
       assert_equal expected_data.(i) (B.old1_get builder);
       assert_equal expected_pointers.(i) (B.old2_get builder);
 
@@ -1272,11 +1272,11 @@ let check_upgraded_list message expected_data expected_pointers =
   let () =
     let tovl = TL.Builder.TestOldVersionList.of_message message in
     let builder_list = TL.Builder.TestOldVersionList.a_get tovl in
-    assert_equal (Capnp.Array.length builder_list) (Array.length expected_data);
+    assert_equal (Zap.Array.length builder_list) (Array.length expected_data);
     let module R = T.Reader.TestOldVersion in
     let module B = T.Builder.TestOldVersion in
     for i = 0 to Array.length expected_data - 1 do
-      let builder = Capnp.Array.get builder_list i in
+      let builder = Zap.Array.get builder_list i in
       assert_equal (B.old1_get_int_exn builder) (i * 123);
       assert_equal (B.old2_get builder) (Printf.sprintf "qux%d" i);
     done
@@ -1286,11 +1286,11 @@ let check_upgraded_list message expected_data expected_pointers =
   let () =
     let tnvl = TL.Builder.TestNewVersionList.of_message message in
     let builder_list = TL.Builder.TestNewVersionList.a_get tnvl in
-    assert_equal (Capnp.Array.length builder_list) (Array.length expected_data);
+    assert_equal (Zap.Array.length builder_list) (Array.length expected_data);
     let module R = T.Reader.TestNewVersion in
     let module B = T.Builder.TestNewVersion in
     for i = 0 to Array.length expected_data - 1 do
-      let builder = Capnp.Array.get builder_list i in
+      let builder = Zap.Array.get builder_list i in
       assert_equal (B.old1_get_int_exn builder) (i * 123);
       assert_equal (B.old2_get builder) (Printf.sprintf "qux%d" i);
       assert_equal (B.new1_get_int_exn builder) (i * 456);
@@ -1303,7 +1303,7 @@ let check_upgraded_list message expected_data expected_pointers =
 let test_upgrade_list_in_builder _ctx =
   let () =
     let root = TL.Builder.VoidList.init_root () in
-    let (_ : (_, _, _) Capnp.Array.t) =
+    let (_ : (_, _, _) Zap.Array.t) =
         TL.Builder.VoidList.a_set_list root [ (); (); (); (); ] in
     assert_equal (TL.Builder.VoidList.a_get_list root) [ (); (); (); (); ];
     check_upgraded_list (TL.Builder.VoidList.to_message root)
@@ -1317,7 +1317,7 @@ let test_upgrade_list_in_builder _ctx =
     check_upgraded_list (TL.Builder.UInt8List.to_message root)
       [| 0x12L; 0x23L; 0x33L; 0x44L |] [| ""; ""; ""; "" |];
     (* old location zero'd during upgrade *)
-    assert_equal (Capnp.Array.to_list a) [ 0; 0; 0; 0 ];
+    assert_equal (Zap.Array.to_list a) [ 0; 0; 0; 0 ];
   in
 
   let () =
@@ -1330,7 +1330,7 @@ let test_upgrade_list_in_builder _ctx =
     check_upgraded_list (TL.Builder.UInt16List.to_message root)
       [| 0x5612L; 0x7823L; 0xab33L; 0xcd44L |] [| ""; ""; ""; "" |];
     (* old location zero'd during upgrade *)
-    assert_equal (Capnp.Array.to_list a) [ 0; 0; 0; 0 ];
+    assert_equal (Zap.Array.to_list a) [ 0; 0; 0; 0 ];
   in
 
   let () =
@@ -1345,7 +1345,7 @@ let test_upgrade_list_in_builder _ctx =
          (List.map ~f:(fun x -> x |> Uint32.to_int32 |> Int64.of_int32) u32_list))
       [| ""; ""; ""; "" |];
     (* old location zero'd during upgrade *)
-    assert_equal (Capnp.Array.to_list a)
+    assert_equal (Zap.Array.to_list a)
       [ Uint32.zero; Uint32.zero; Uint32.zero; Uint32.zero ]
   in
 
@@ -1360,7 +1360,7 @@ let test_upgrade_list_in_builder _ctx =
       (Array.of_list (List.map ~f:Uint64.to_int64 u64_list))
       [| ""; "" |];
     (* old location zero'd during upgrade *)
-    assert_equal (Capnp.Array.to_list a) [ Uint64.zero; Uint64.zero; ]
+    assert_equal (Zap.Array.to_list a) [ Uint64.zero; Uint64.zero; ]
   in
 
   let () =
@@ -1370,7 +1370,7 @@ let test_upgrade_list_in_builder _ctx =
     check_upgraded_list (TL.Builder.TextList.to_message root)
       [| 0L; 0L; 0L |] [| "foo"; "bar"; "baz" |];
     (* old location zero'd during upgrade *)
-    assert_equal (Capnp.Array.to_list a) [ ""; ""; "" ]
+    assert_equal (Zap.Array.to_list a) [ ""; ""; "" ]
   in
 
   let () =
@@ -1378,12 +1378,12 @@ let test_upgrade_list_in_builder _ctx =
       let root = TL.Builder.TestOldVersionList.init_root () in
       let a = TL.Builder.TestOldVersionList.a_init root 3 in
       let open T.Builder.TestOldVersion in
-      old1_set (Capnp.Array.get a 0) 0x1234567890abcdefL;
-      old1_set (Capnp.Array.get a 1) 0x234567890abcdef1L;
-      old1_set (Capnp.Array.get a 2) 0x34567890abcdef12L;
-      old2_set (Capnp.Array.get a 0) "foo";
-      old2_set (Capnp.Array.get a 1) "bar";
-      old2_set (Capnp.Array.get a 2) "baz";
+      old1_set (Zap.Array.get a 0) 0x1234567890abcdefL;
+      old1_set (Zap.Array.get a 1) 0x234567890abcdef1L;
+      old1_set (Zap.Array.get a 2) 0x34567890abcdef12L;
+      old2_set (Zap.Array.get a 0) "foo";
+      old2_set (Zap.Array.get a 1) "bar";
+      old2_set (Zap.Array.get a 2) "baz";
       (TL.Builder.TestOldVersionList.to_message root, a)
     in
     let () =
@@ -1423,9 +1423,9 @@ let test_upgrade_list_in_builder _ctx =
     (* old location zero'd during upgrade *)
     let module R = T.Reader.TestOldVersion in
     assert_equal (List.map ~f:(fun x -> x |> R.of_builder |> R.old1_get)
-        (Capnp.Array.to_list orig)) [ 0L; 0L; 0L ];
+        (Zap.Array.to_list orig)) [ 0L; 0L; 0L ];
     assert_equal (List.map ~f:(fun x -> x |> R.of_builder |> R.old2_get)
-        (Capnp.Array.to_list orig)) [ ""; ""; "" ]
+        (Zap.Array.to_list orig)) [ ""; ""; "" ]
   in
   ()
 
@@ -1517,60 +1517,60 @@ let test_constants _ctx =
       [ 0.0; 123456789012345.0; 1e306; -1e306; 1e-306; -1e-306 ] ~f:assert_float64_equal;
     assert_equal (text_list_get_list struct_const) [ "quux"; "corge"; "grault" ];
     assert_equal (data_list_get_list struct_const) [ "garply"; "waldo"; "fred" ];
-    assert_equal 3 (Capnp.Array.length (struct_list_get struct_const));
+    assert_equal 3 (Zap.Array.length (struct_list_get struct_const));
     assert_equal "x structlist 1"
-      (text_field_get (Capnp.Array.get (struct_list_get struct_const) 0));
+      (text_field_get (Zap.Array.get (struct_list_get struct_const) 0));
     assert_equal "x structlist 2"
-      (text_field_get (Capnp.Array.get (struct_list_get struct_const) 1));
+      (text_field_get (Zap.Array.get (struct_list_get struct_const) 1));
     assert_equal "x structlist 3"
-      (text_field_get (Capnp.Array.get (struct_list_get struct_const) 2));
+      (text_field_get (Zap.Array.get (struct_list_get struct_const) 2));
     assert_equal (enum_list_get_list struct_const)
       [ T.Reader.TestEnum.Qux; T.Reader.TestEnum.Bar; T.Reader.TestEnum.Grault ]
   in
   assert_equal T.Reader.TestEnum.Corge enum_const;
 
-  assert_equal 6 (Capnp.Array.length void_list_const);
-  assert_equal (Capnp.Array.to_list bool_list_const) [ true; false; false; true ];
-  assert_equal (Capnp.Array.to_list int8_list_const) [ 111; -111 ];
-  assert_equal (Capnp.Array.to_list int16_list_const) [ 11111; -11111 ];
-  assert_equal (Capnp.Array.to_list int32_list_const)
+  assert_equal 6 (Zap.Array.length void_list_const);
+  assert_equal (Zap.Array.to_list bool_list_const) [ true; false; false; true ];
+  assert_equal (Zap.Array.to_list int8_list_const) [ 111; -111 ];
+  assert_equal (Zap.Array.to_list int16_list_const) [ 11111; -11111 ];
+  assert_equal (Zap.Array.to_list int32_list_const)
     [ 111111111l; -111111111l ];
-  assert_equal (Capnp.Array.to_list int64_list_const)
+  assert_equal (Zap.Array.to_list int64_list_const)
     [ 1111111111111111111L; -1111111111111111111L ];
-  assert_equal (Capnp.Array.to_list uint8_list_const) [ 111; 222 ];
-  assert_equal (Capnp.Array.to_list uint16_list_const) [ 33333; 44444 ];
-  assert_equal (Capnp.Array.to_list uint32_list_const)
+  assert_equal (Zap.Array.to_list uint8_list_const) [ 111; 222 ];
+  assert_equal (Zap.Array.to_list uint16_list_const) [ 33333; 44444 ];
+  assert_equal (Zap.Array.to_list uint32_list_const)
     [ Uint32.of_string "3333333333" ];
-  assert_equal (Capnp.Array.to_list uint64_list_const)
+  assert_equal (Zap.Array.to_list uint64_list_const)
     [ Uint64.of_string "11111111111111111111" ];
 
-  assert_equal 4 (Capnp.Array.length float32_list_const);
-  assert_float32_equal 5555.5 (Capnp.Array.get float32_list_const 0);
-  assert_equal Float.infinity (Capnp.Array.get float32_list_const 1);
-  assert_equal Float.neg_infinity (Capnp.Array.get float32_list_const 2);
+  assert_equal 4 (Zap.Array.length float32_list_const);
+  assert_float32_equal 5555.5 (Zap.Array.get float32_list_const 0);
+  assert_equal Float.infinity (Zap.Array.get float32_list_const 1);
+  assert_equal Float.neg_infinity (Zap.Array.get float32_list_const 2);
   assert_bool "nan"
-    ((Capnp.Array.get float32_list_const 3) <> (Capnp.Array.get float32_list_const 3));
+    ((Zap.Array.get float32_list_const 3) <> (Zap.Array.get float32_list_const 3));
 
-  assert_equal 4 (Capnp.Array.length float64_list_const);
-  assert_float64_equal 7777.75 (Capnp.Array.get float64_list_const 0);
-  assert_equal Float.infinity (Capnp.Array.get float64_list_const 1);
-  assert_equal Float.neg_infinity (Capnp.Array.get float64_list_const 2);
+  assert_equal 4 (Zap.Array.length float64_list_const);
+  assert_float64_equal 7777.75 (Zap.Array.get float64_list_const 0);
+  assert_equal Float.infinity (Zap.Array.get float64_list_const 1);
+  assert_equal Float.neg_infinity (Zap.Array.get float64_list_const 2);
   assert_bool "nan"
-    ((Capnp.Array.get float64_list_const 3) <> (Capnp.Array.get float64_list_const 3));
+    ((Zap.Array.get float64_list_const 3) <> (Zap.Array.get float64_list_const 3));
 
-  assert_equal (Capnp.Array.to_list text_list_const)
+  assert_equal (Zap.Array.to_list text_list_const)
     [ "plugh"; "xyzzy"; "thud" ];
-  assert_equal (Capnp.Array.to_list data_list_const)
+  assert_equal (Zap.Array.to_list data_list_const)
     [ "oops"; "exhausted"; "rfc3092" ];
 
   let () =
     let open T.Reader.TestAllTypes in
-    assert_equal 3 (Capnp.Array.length struct_list_const);
-    assert_equal "structlist 1" (text_field_get (Capnp.Array.get struct_list_const 0));
-    assert_equal "structlist 2" (text_field_get (Capnp.Array.get struct_list_const 1));
-    assert_equal "structlist 3" (text_field_get (Capnp.Array.get struct_list_const 2))
+    assert_equal 3 (Zap.Array.length struct_list_const);
+    assert_equal "structlist 1" (text_field_get (Zap.Array.get struct_list_const 0));
+    assert_equal "structlist 2" (text_field_get (Zap.Array.get struct_list_const 1));
+    assert_equal "structlist 3" (text_field_get (Zap.Array.get struct_list_const 2))
   in
-  assert_equal (Capnp.Array.to_list enum_list_const)
+  assert_equal (Zap.Array.to_list enum_list_const)
     [ T.Reader.TestEnum.Foo; T.Reader.TestEnum.Garply ]
 
 
@@ -1589,10 +1589,10 @@ let test_global_constants _ctx =
   assert_equal (int16_list_get_list T.Reader.derived_constant)
     [ 11111; -11111 ];
   let list_reader = struct_list_get T.Reader.derived_constant in
-  assert_equal 3 (Capnp.Array.length list_reader);
-  assert_equal "structlist 1" (text_field_get (Capnp.Array.get list_reader 0));
-  assert_equal "structlist 2" (text_field_get (Capnp.Array.get list_reader 1));
-  assert_equal "structlist 3" (text_field_get (Capnp.Array.get list_reader 2))
+  assert_equal 3 (Zap.Array.length list_reader);
+  assert_equal "structlist 1" (text_field_get (Zap.Array.get list_reader 0));
+  assert_equal "structlist 2" (text_field_get (Zap.Array.get list_reader 1));
+  assert_equal "structlist 3" (text_field_get (Zap.Array.get list_reader 2))
 
 
 let test_int_accessors _ctx =

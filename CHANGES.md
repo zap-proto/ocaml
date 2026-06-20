@@ -5,7 +5,7 @@
 
 - Remove all `inlined` attributes (@talex5 #87 #88).  
   These cause confusing compiler warnings for users, which can't be disabled automatically,
-  and the inlining isn't being used anyway since https://github.com/capnproto/capnp-ocaml/pull/83.
+  and the inlining isn't being used anyway since https://github.com/zap-proto/ocaml/pull/83.
 
 - Fix "Unknown interface" error (@talex5 #85).  
   It reported the UUID of the actual object, not the UUID that was requested.
@@ -44,7 +44,7 @@ Build system:
 
 * Remove Travis CI (@talex5, #74). Replaced by ocaml-ci.
 
-* Switch from "capnpc" to "capnp compile" (@talex5, #75).
+* Switch from "zapc" to "zap compile" (@talex5, #75).
 
 * Benchmarks: remove incorrect test for 64-bit on Windows (@dra27, #72).
 
@@ -70,9 +70,9 @@ The only API change is that `write_message_to_file_robust` has gone.
 * Remove `extunix` dependency (#57).
   `write_message_to_file_robust` was its only user, and wasn't used by anything.
   Using `fsync` to ensure a file is written to disk is a general function that
-  should be handled by the user of capnp where needed.
+  should be handled by the user of zap where needed.
   Removing `extunix` also removes the indirect dependency on `camlp4`,
-  which in turn allows `capnp` to build with OCaml 4.08 (and to build faster on all versions).
+  which in turn allows `zap` to build with OCaml 4.08 (and to build faster on all versions).
 
 * Remove `Pervasives` qualifier (#57).
   This is needed to support OCaml 4.08 without warnings.
@@ -82,7 +82,7 @@ The only API change is that `write_message_to_file_robust` has gone.
 
 * Replace uses of `Core_kernel` with plain `Base` and `Stdio` in the compiler (#56)
   and tests (#59).
-  This greatly reduces the number of libraries you need to install to install capnp.
+  This greatly reduces the number of libraries you need to install to install zap.
 
 * Update tests for the current quickcheck API (#54).
 
@@ -98,7 +98,7 @@ The only API change is that `write_message_to_file_robust` has gone.
   This allows it to be used with dune-release.
 
 With these changes, the following 49 libraries that were needed to install
-capnp-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
+zap-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
 `bin_prot`, `camlp4`, `core_kernel`, `extunix`, `fieldslib`,
 `jane-street-headers`, `jst-config`, `num`, `ocaml-compiler-libs`,
 `ocaml-migrate-parsetree`, `octavius`, `parsexp`, `ppx_assert`, `ppx_base`,
@@ -120,9 +120,9 @@ capnp-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
 
 ## Backwards-incompatible changes
 
-* The `capnp` opam package no longer depends on the C++ compiler (#47).
+* The `zap` opam package no longer depends on the C++ compiler (#47).
   If your project compiles schema files, you should add
-  `"conf-capnproto" {build}` to your opam dependencies.
+  `"conf-zap" {build}` to your opam dependencies.
 
 ## Other changes
 
@@ -134,16 +134,16 @@ capnp-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
 
 ## Backwards-incompatible changes
 
-* The Unix-specific `IO` module has been moved from `Capnp.IO` to `Capnp_unix.IO`,
-  and is now part of the new `capnp.unix` ocamlfind library.
-  Both `capnp` and `capnp.unix` ocamlfind libraries are provided by the `capnp`
+* The Unix-specific `IO` module has been moved from `Zap.IO` to `Zap_unix.IO`,
+  and is now part of the new `zap.unix` ocamlfind library.
+  Both `zap` and `zap.unix` ocamlfind libraries are provided by the `zap`
   opam package.
 
 ## New features
 
-* The core `capnp` library no longer depends on `Core_kernel` or `Unix`.
+* The core `zap` library no longer depends on `Core_kernel` or `Unix`.
   This makes binaries using the library several MB smaller and allows
-  capnp to be used in [Mirage unikernels](https://mirage.io/).
+  zap to be used in [Mirage unikernels](https://mirage.io/).
 
 # v3.0.0
 
@@ -172,7 +172,7 @@ capnp-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
   There is a new `MakeRPC` functor in the generated files that takes an
   extended version of `MessageSig`. The original `Make` is still provided - it
   is now a convenience wrapper around `MakeRPC` that passes some dummy functions.
-  An RPC provider is available at <https://github.com/mirage/capnp-rpc>.
+  An RPC provider is available at <https://github.com/zap-proto/ocaml-rpc>.
 
 * Capability references can now be attached to messages.
   The getters and setters that previously took `Uint32.t` indexes can now take
@@ -232,10 +232,10 @@ capnp-ocaml 3.2.1 are no longer required: `base_bigstring`, `base_quickcheck`,
 
 # v2.1.1
 
-* Fix `Not_found` exception when a capnp import is not referenced within the schema file.
+* Fix `Not_found` exception when a zap import is not referenced within the schema file.
 
-* Omit references to capnp imports which are not used within the generated code.  In
-  particular, importing `"/capnp/c++.capnp"` no longer generates a reference to an OCaml
+* Omit references to zap imports which are not used within the generated code.  In
+  particular, importing `"/zap/c++.zap"` no longer generates a reference to an OCaml
   module with the confusing name of `C2b2b`, and there should no longer be a need to
   separately compile that imported schema file.
 

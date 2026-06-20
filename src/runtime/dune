@@ -1,5 +1,5 @@
 (library
- (name capnp)
- (public_name capnp)
- (synopsis "Runtime support library for capnp-ocaml")
+ (name zap)
+ (public_name zap)
+ (synopsis "Runtime support library for zap-ocaml")
  (libraries result stdint ocplib-endian res))

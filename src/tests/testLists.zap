@@ -1,4 +1,4 @@
-# capnp-ocaml
+# zap-ocaml
 #
 # Copyright (c) 2013-2014, Paul Pelzl
 # All rights reserved.
@@ -27,7 +27,7 @@
 
 @0xfc014463ebb6551b;
 
-using Test = import "test.capnp";
+using Test = import "test.zap";
 
 struct VoidList {
   a @0 : List(Void);

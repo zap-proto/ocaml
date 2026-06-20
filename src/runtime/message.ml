@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -356,7 +356,7 @@ module Make (Storage : MessageStorage.S) = struct
   end   (* module Slice *)
 
   module StructStorage = struct
-    (** Storage associated with a cap'n proto struct. *)
+    (** Storage associated with a zap struct. *)
     type ('cap, 'a) t = {
       data     : 'cap Slice.t;  (** Storage for struct fields stored by value *)
       pointers : 'cap Slice.t;  (** Storage for struct fields stored by reference *)
@@ -391,7 +391,7 @@ module Make (Storage : MessageStorage.S) = struct
   end
 
   module ListStorage = struct
-    (** Storage associated with a cap'n proto list. *)
+    (** Storage associated with a zap list. *)
     type 'cap t = {
       storage      : 'cap Slice.t;      (** Range of bytes used to hold list elements *)
       storage_type : ListStorageType.t; (** Describes the list packing format *)

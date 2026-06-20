@@ -3,11 +3,11 @@
 module Uint32 = Stdint.Uint32
 module Uint64 = Stdint.Uint64
 
-type ro = Capnp.Message.ro
-type rw = Capnp.Message.rw
+type ro = Zap.Message.ro
+type rw = Zap.Message.rw
 
 module type S = sig
-  module MessageWrapper : Capnp.RPC.S
+  module MessageWrapper : Zap.RPC.S
   type 'cap message_t = 'cap MessageWrapper.Message.t
   type 'a reader_t = 'a MessageWrapper.StructStorage.reader_t
   type 'a builder_t = 'a MessageWrapper.StructStorage.builder_t
@@ -44,7 +44,7 @@ module type S = sig
         val discriminant_offset_get : t -> Uint32.t
         val discriminant_offset_get_int_exn : t -> int
         val has_fields : t -> bool
-        val fields_get : t -> (ro, [`Field_9aad50a41f4af45f] reader_t, array_t) Capnp.Array.t
+        val fields_get : t -> (ro, [`Field_9aad50a41f4af45f] reader_t, array_t) Zap.Array.t
         val fields_get_list : t -> [`Field_9aad50a41f4af45f] reader_t list
         val fields_get_array : t -> [`Field_9aad50a41f4af45f] reader_t array
         val of_message : 'cap message_t -> t
@@ -54,7 +54,7 @@ module type S = sig
         type struct_t = [`Enum_b54ab3364333f598]
         type t = struct_t reader_t
         val has_enumerants : t -> bool
-        val enumerants_get : t -> (ro, [`Enumerant_978a7cebdc549a4d] reader_t, array_t) Capnp.Array.t
+        val enumerants_get : t -> (ro, [`Enumerant_978a7cebdc549a4d] reader_t, array_t) Zap.Array.t
         val enumerants_get_list : t -> [`Enumerant_978a7cebdc549a4d] reader_t list
         val enumerants_get_array : t -> [`Enumerant_978a7cebdc549a4d] reader_t array
         val of_message : 'cap message_t -> t
@@ -64,11 +64,11 @@ module type S = sig
         type struct_t = [`Interface_e82753cff0c2218f]
         type t = struct_t reader_t
         val has_methods : t -> bool
-        val methods_get : t -> (ro, [`Method_9500cce23b334d80] reader_t, array_t) Capnp.Array.t
+        val methods_get : t -> (ro, [`Method_9500cce23b334d80] reader_t, array_t) Zap.Array.t
         val methods_get_list : t -> [`Method_9500cce23b334d80] reader_t list
         val methods_get_array : t -> [`Method_9500cce23b334d80] reader_t array
         val has_superclasses : t -> bool
-        val superclasses_get : t -> (ro, [`Superclass_a9962a9ed0a4d7f8] reader_t, array_t) Capnp.Array.t
+        val superclasses_get : t -> (ro, [`Superclass_a9962a9ed0a4d7f8] reader_t, array_t) Zap.Array.t
         val superclasses_get_list : t -> [`Superclass_a9962a9ed0a4d7f8] reader_t list
         val superclasses_get_array : t -> [`Superclass_a9962a9ed0a4d7f8] reader_t array
         val of_message : 'cap message_t -> t
@@ -143,16 +143,16 @@ module type S = sig
       val scope_id_get : t -> Uint64.t
       val scope_id_get_int_exn : t -> int
       val has_parameters : t -> bool
-      val parameters_get : t -> (ro, [`Parameter_b9521bccf10fa3b1] reader_t, array_t) Capnp.Array.t
+      val parameters_get : t -> (ro, [`Parameter_b9521bccf10fa3b1] reader_t, array_t) Zap.Array.t
       val parameters_get_list : t -> [`Parameter_b9521bccf10fa3b1] reader_t list
       val parameters_get_array : t -> [`Parameter_b9521bccf10fa3b1] reader_t array
       val is_generic_get : t -> bool
       val has_nested_nodes : t -> bool
-      val nested_nodes_get : t -> (ro, [`NestedNode_debf55bbfa0fc242] reader_t, array_t) Capnp.Array.t
+      val nested_nodes_get : t -> (ro, [`NestedNode_debf55bbfa0fc242] reader_t, array_t) Zap.Array.t
       val nested_nodes_get_list : t -> [`NestedNode_debf55bbfa0fc242] reader_t list
       val nested_nodes_get_array : t -> [`NestedNode_debf55bbfa0fc242] reader_t array
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -205,7 +205,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val discriminant_value_get : t -> int
@@ -220,7 +220,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -244,7 +244,7 @@ module type S = sig
       val name_get : t -> string
       val code_order_get : t -> int
       val has_implicit_parameters : t -> bool
-      val implicit_parameters_get : t -> (ro, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_get : t -> (ro, Node.Parameter.t, array_t) Zap.Array.t
       val implicit_parameters_get_list : t -> Node.Parameter.t list
       val implicit_parameters_get_array : t -> Node.Parameter.t array
       val param_struct_type_get : t -> Uint64.t
@@ -258,7 +258,7 @@ module type S = sig
       val result_brand_get : t -> [`Brand_903455f06065422b] reader_t
       val result_brand_get_pipelined : struct_t MessageWrapper.StructRef.t -> [`Brand_903455f06065422b] MessageWrapper.StructRef.t
       val has_annotations : t -> bool
-      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (ro, [`Annotation_f1c8950dab257542] reader_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] reader_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] reader_t array
       val of_message : 'cap message_t -> t
@@ -382,7 +382,7 @@ module type S = sig
         type struct_t = [`Scope_abd73485a9636bc9]
         type t = struct_t reader_t
         type unnamed_union_t =
-          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Capnp.Array.t
+          | Bind of (ro, [`Binding_c863cd16969ee7fc] reader_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         val get : t -> unnamed_union_t
@@ -403,7 +403,7 @@ module type S = sig
         val of_builder : struct_t builder_t -> t
       end
       val has_scopes : t -> bool
-      val scopes_get : t -> (ro, [`Scope_abd73485a9636bc9] reader_t, array_t) Capnp.Array.t
+      val scopes_get : t -> (ro, [`Scope_abd73485a9636bc9] reader_t, array_t) Zap.Array.t
       val scopes_get_list : t -> [`Scope_abd73485a9636bc9] reader_t list
       val scopes_get_array : t -> [`Scope_abd73485a9636bc9] reader_t array
       val of_message : 'cap message_t -> t
@@ -463,8 +463,8 @@ module type S = sig
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion : sig
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion : sig
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t reader_t
       val major_get : t -> int
       val minor_get : t -> int
@@ -493,21 +493,21 @@ module type S = sig
         val has_filename : t -> bool
         val filename_get : t -> string
         val has_imports : t -> bool
-        val imports_get : t -> (ro, [`Import_ae504193122357e5] reader_t, array_t) Capnp.Array.t
+        val imports_get : t -> (ro, [`Import_ae504193122357e5] reader_t, array_t) Zap.Array.t
         val imports_get_list : t -> [`Import_ae504193122357e5] reader_t list
         val imports_get_array : t -> [`Import_ae504193122357e5] reader_t array
         val of_message : 'cap message_t -> t
         val of_builder : struct_t builder_t -> t
       end
-      val has_capnp_version : t -> bool
-      val capnp_version_get : t -> CapnpVersion.t
-      val capnp_version_get_pipelined : struct_t MessageWrapper.StructRef.t -> CapnpVersion.struct_t MessageWrapper.StructRef.t
+      val has_zap_version : t -> bool
+      val zap_version_get : t -> ZapVersion.t
+      val zap_version_get_pipelined : struct_t MessageWrapper.StructRef.t -> ZapVersion.struct_t MessageWrapper.StructRef.t
       val has_nodes : t -> bool
-      val nodes_get : t -> (ro, Node.t, array_t) Capnp.Array.t
+      val nodes_get : t -> (ro, Node.t, array_t) Zap.Array.t
       val nodes_get_list : t -> Node.t list
       val nodes_get_array : t -> Node.t array
       val has_requested_files : t -> bool
-      val requested_files_get : t -> (ro, [`RequestedFile_cfea0eb02e810062] reader_t, array_t) Capnp.Array.t
+      val requested_files_get : t -> (ro, [`RequestedFile_cfea0eb02e810062] reader_t, array_t) Zap.Array.t
       val requested_files_get_list : t -> [`RequestedFile_cfea0eb02e810062] reader_t list
       val requested_files_get_array : t -> [`RequestedFile_cfea0eb02e810062] reader_t array
       val of_message : 'cap message_t -> t
@@ -541,13 +541,13 @@ module type S = sig
         val discriminant_offset_set : t -> Uint32.t -> unit
         val discriminant_offset_set_int_exn : t -> int -> unit
         val has_fields : t -> bool
-        val fields_get : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
+        val fields_get : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
         val fields_get_list : t -> [`Field_9aad50a41f4af45f] builder_t list
         val fields_get_array : t -> [`Field_9aad50a41f4af45f] builder_t array
-        val fields_set : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_set_list : t -> [`Field_9aad50a41f4af45f] builder_t list -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_set_array : t -> [`Field_9aad50a41f4af45f] builder_t array -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
-        val fields_init : t -> int -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Capnp.Array.t
+        val fields_set : t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_set_list : t -> [`Field_9aad50a41f4af45f] builder_t list -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_set_array : t -> [`Field_9aad50a41f4af45f] builder_t array -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
+        val fields_init : t -> int -> (rw, [`Field_9aad50a41f4af45f] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -558,13 +558,13 @@ module type S = sig
         type struct_t = [`Enum_b54ab3364333f598]
         type t = struct_t builder_t
         val has_enumerants : t -> bool
-        val enumerants_get : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
+        val enumerants_get : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
         val enumerants_get_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list
         val enumerants_get_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array
-        val enumerants_set : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_set_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_set_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
-        val enumerants_init : t -> int -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Capnp.Array.t
+        val enumerants_set : t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_set_list : t -> [`Enumerant_978a7cebdc549a4d] builder_t list -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_set_array : t -> [`Enumerant_978a7cebdc549a4d] builder_t array -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
+        val enumerants_init : t -> int -> (rw, [`Enumerant_978a7cebdc549a4d] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -575,21 +575,21 @@ module type S = sig
         type struct_t = [`Interface_e82753cff0c2218f]
         type t = struct_t builder_t
         val has_methods : t -> bool
-        val methods_get : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
+        val methods_get : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
         val methods_get_list : t -> [`Method_9500cce23b334d80] builder_t list
         val methods_get_array : t -> [`Method_9500cce23b334d80] builder_t array
-        val methods_set : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_set_list : t -> [`Method_9500cce23b334d80] builder_t list -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_set_array : t -> [`Method_9500cce23b334d80] builder_t array -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
-        val methods_init : t -> int -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Capnp.Array.t
+        val methods_set : t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_set_list : t -> [`Method_9500cce23b334d80] builder_t list -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_set_array : t -> [`Method_9500cce23b334d80] builder_t array -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
+        val methods_init : t -> int -> (rw, [`Method_9500cce23b334d80] builder_t, array_t) Zap.Array.t
         val has_superclasses : t -> bool
-        val superclasses_get : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
+        val superclasses_get : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
         val superclasses_get_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list
         val superclasses_get_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array
-        val superclasses_set : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_set_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_set_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
-        val superclasses_init : t -> int -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Capnp.Array.t
+        val superclasses_set : t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_set_list : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t list -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_set_array : t -> [`Superclass_a9962a9ed0a4d7f8] builder_t array -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
+        val superclasses_init : t -> int -> (rw, [`Superclass_a9962a9ed0a4d7f8] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
@@ -712,31 +712,31 @@ module type S = sig
       val scope_id_set : t -> Uint64.t -> unit
       val scope_id_set_int_exn : t -> int -> unit
       val has_parameters : t -> bool
-      val parameters_get : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
+      val parameters_get : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
       val parameters_get_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list
       val parameters_get_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array
-      val parameters_set : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_set_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_set_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
-      val parameters_init : t -> int -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Capnp.Array.t
+      val parameters_set : t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_set_list : t -> [`Parameter_b9521bccf10fa3b1] builder_t list -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_set_array : t -> [`Parameter_b9521bccf10fa3b1] builder_t array -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
+      val parameters_init : t -> int -> (rw, [`Parameter_b9521bccf10fa3b1] builder_t, array_t) Zap.Array.t
       val is_generic_get : t -> bool
       val is_generic_set : t -> bool -> unit
       val has_nested_nodes : t -> bool
-      val nested_nodes_get : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
+      val nested_nodes_get : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
       val nested_nodes_get_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list
       val nested_nodes_get_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array
-      val nested_nodes_set : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_set_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_set_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
-      val nested_nodes_init : t -> int -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Capnp.Array.t
+      val nested_nodes_set : t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_set_list : t -> [`NestedNode_debf55bbfa0fc242] builder_t list -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_set_array : t -> [`NestedNode_debf55bbfa0fc242] builder_t array -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
+      val nested_nodes_init : t -> int -> (rw, [`NestedNode_debf55bbfa0fc242] builder_t, array_t) Zap.Array.t
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -814,13 +814,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val discriminant_value_get : t -> int
       val discriminant_value_set_exn : t -> int -> unit
       val ordinal_get : t -> Ordinal.t
@@ -840,13 +840,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -880,13 +880,13 @@ module type S = sig
       val code_order_get : t -> int
       val code_order_set_exn : t -> int -> unit
       val has_implicit_parameters : t -> bool
-      val implicit_parameters_get : t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_get : t -> (rw, Node.Parameter.t, array_t) Zap.Array.t
       val implicit_parameters_get_list : t -> Node.Parameter.t list
       val implicit_parameters_get_array : t -> Node.Parameter.t array
-      val implicit_parameters_set : t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_set_list : t -> Node.Parameter.t list -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_set_array : t -> Node.Parameter.t array -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
-      val implicit_parameters_init : t -> int -> (rw, Node.Parameter.t, array_t) Capnp.Array.t
+      val implicit_parameters_set : t -> (rw, Node.Parameter.t, array_t) Zap.Array.t -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_set_list : t -> Node.Parameter.t list -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_set_array : t -> Node.Parameter.t array -> (rw, Node.Parameter.t, array_t) Zap.Array.t
+      val implicit_parameters_init : t -> int -> (rw, Node.Parameter.t, array_t) Zap.Array.t
       val param_struct_type_get : t -> Uint64.t
       val param_struct_type_get_int_exn : t -> int
       val param_struct_type_set : t -> Uint64.t -> unit
@@ -906,13 +906,13 @@ module type S = sig
       val result_brand_set_builder : t -> [`Brand_903455f06065422b] builder_t -> [`Brand_903455f06065422b] builder_t
       val result_brand_init : t -> [`Brand_903455f06065422b] builder_t
       val has_annotations : t -> bool
-      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_get : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val annotations_get_list : t -> [`Annotation_f1c8950dab257542] builder_t list
       val annotations_get_array : t -> [`Annotation_f1c8950dab257542] builder_t array
-      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
-      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Capnp.Array.t
+      val annotations_set : t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_list : t -> [`Annotation_f1c8950dab257542] builder_t list -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_set_array : t -> [`Annotation_f1c8950dab257542] builder_t array -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
+      val annotations_init : t -> int -> (rw, [`Annotation_f1c8950dab257542] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1108,14 +1108,14 @@ module type S = sig
         type struct_t = [`Scope_abd73485a9636bc9]
         type t = struct_t builder_t
         type unnamed_union_t =
-          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
+          | Bind of (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
           | Inherit
           | Undefined of int
         val get : t -> unnamed_union_t
-        val bind_set : t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_set_list : t -> [`Binding_c863cd16969ee7fc] builder_t list -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_set_array : t -> [`Binding_c863cd16969ee7fc] builder_t array -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
-        val bind_init : t -> int -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Capnp.Array.t
+        val bind_set : t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_set_list : t -> [`Binding_c863cd16969ee7fc] builder_t list -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_set_array : t -> [`Binding_c863cd16969ee7fc] builder_t array -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
+        val bind_init : t -> int -> (rw, [`Binding_c863cd16969ee7fc] builder_t, array_t) Zap.Array.t
         val inherit_set : t -> unit
         val scope_id_get : t -> Uint64.t
         val scope_id_get_int_exn : t -> int
@@ -1146,13 +1146,13 @@ module type S = sig
         val init_pointer : pointer_t -> t
       end
       val has_scopes : t -> bool
-      val scopes_get : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
+      val scopes_get : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
       val scopes_get_list : t -> [`Scope_abd73485a9636bc9] builder_t list
       val scopes_get_array : t -> [`Scope_abd73485a9636bc9] builder_t array
-      val scopes_set : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_set_list : t -> [`Scope_abd73485a9636bc9] builder_t list -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_set_array : t -> [`Scope_abd73485a9636bc9] builder_t array -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
-      val scopes_init : t -> int -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Capnp.Array.t
+      val scopes_set : t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_set_list : t -> [`Scope_abd73485a9636bc9] builder_t list -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_set_array : t -> [`Scope_abd73485a9636bc9] builder_t array -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
+      val scopes_init : t -> int -> (rw, [`Scope_abd73485a9636bc9] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1254,8 +1254,8 @@ module type S = sig
         | InlineComposite
         | Undefined of int
     end
-    module CapnpVersion : sig
-      type struct_t = [`CapnpVersion_d85d305b7d839963]
+    module ZapVersion : sig
+      type struct_t = [`ZapVersion_d85d305b7d839963]
       type t = struct_t builder_t
       val major_get : t -> int
       val major_set_exn : t -> int -> unit
@@ -1299,40 +1299,40 @@ module type S = sig
         val filename_get : t -> string
         val filename_set : t -> string -> unit
         val has_imports : t -> bool
-        val imports_get : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
+        val imports_get : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
         val imports_get_list : t -> [`Import_ae504193122357e5] builder_t list
         val imports_get_array : t -> [`Import_ae504193122357e5] builder_t array
-        val imports_set : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_set_list : t -> [`Import_ae504193122357e5] builder_t list -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_set_array : t -> [`Import_ae504193122357e5] builder_t array -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
-        val imports_init : t -> int -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Capnp.Array.t
+        val imports_set : t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_set_list : t -> [`Import_ae504193122357e5] builder_t list -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_set_array : t -> [`Import_ae504193122357e5] builder_t array -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
+        val imports_init : t -> int -> (rw, [`Import_ae504193122357e5] builder_t, array_t) Zap.Array.t
         val of_message : rw message_t -> t
         val to_message : t -> rw message_t
         val to_reader : t -> struct_t reader_t
         val init_root : ?message_size:int -> unit -> t
         val init_pointer : pointer_t -> t
       end
-      val has_capnp_version : t -> bool
-      val capnp_version_get : t -> CapnpVersion.t
-      val capnp_version_set_reader : t -> CapnpVersion.struct_t reader_t -> CapnpVersion.t
-      val capnp_version_set_builder : t -> CapnpVersion.t -> CapnpVersion.t
-      val capnp_version_init : t -> CapnpVersion.t
+      val has_zap_version : t -> bool
+      val zap_version_get : t -> ZapVersion.t
+      val zap_version_set_reader : t -> ZapVersion.struct_t reader_t -> ZapVersion.t
+      val zap_version_set_builder : t -> ZapVersion.t -> ZapVersion.t
+      val zap_version_init : t -> ZapVersion.t
       val has_nodes : t -> bool
-      val nodes_get : t -> (rw, Node.t, array_t) Capnp.Array.t
+      val nodes_get : t -> (rw, Node.t, array_t) Zap.Array.t
       val nodes_get_list : t -> Node.t list
       val nodes_get_array : t -> Node.t array
-      val nodes_set : t -> (rw, Node.t, array_t) Capnp.Array.t -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_set_list : t -> Node.t list -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_set_array : t -> Node.t array -> (rw, Node.t, array_t) Capnp.Array.t
-      val nodes_init : t -> int -> (rw, Node.t, array_t) Capnp.Array.t
+      val nodes_set : t -> (rw, Node.t, array_t) Zap.Array.t -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_set_list : t -> Node.t list -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_set_array : t -> Node.t array -> (rw, Node.t, array_t) Zap.Array.t
+      val nodes_init : t -> int -> (rw, Node.t, array_t) Zap.Array.t
       val has_requested_files : t -> bool
-      val requested_files_get : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
+      val requested_files_get : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
       val requested_files_get_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list
       val requested_files_get_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array
-      val requested_files_set : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_set_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_set_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
-      val requested_files_init : t -> int -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Capnp.Array.t
+      val requested_files_set : t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_set_list : t -> [`RequestedFile_cfea0eb02e810062] builder_t list -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_set_array : t -> [`RequestedFile_cfea0eb02e810062] builder_t array -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
+      val requested_files_init : t -> int -> (rw, [`RequestedFile_cfea0eb02e810062] builder_t, array_t) Zap.Array.t
       val of_message : rw message_t -> t
       val to_message : t -> rw message_t
       val to_reader : t -> struct_t reader_t
@@ -1342,7 +1342,7 @@ module type S = sig
   end
 end
 
-module MakeRPC(MessageWrapper : Capnp.RPC.S) : sig
+module MakeRPC(MessageWrapper : Zap.RPC.S) : sig
   include S with module MessageWrapper = MessageWrapper
 
   module Client : sig
@@ -1352,4 +1352,4 @@ module MakeRPC(MessageWrapper : Capnp.RPC.S) : sig
   end
 end
 
-module Make(M : Capnp.MessageSig.S) : module type of MakeRPC(Capnp.RPC.None(M))
+module Make(M : Zap.MessageSig.S) : module type of MakeRPC(Zap.RPC.None(M))

@@ -1,7 +1,7 @@
 
 module CamlBytes = Bytes
 
-module CR = Catrank.Make(Capnp.BytesMessage)
+module CR = Catrank.Make(Zap.BytesMessage)
 
 module Array = Base.Array
 module Char = Base.Char
@@ -24,7 +24,7 @@ module TestCase = struct
   (* For this workload, calling into glibc 'strstr' significantly outperforms
      the KMP algorithm found in Core_string. *)
   external _string_contains : string -> string -> bool =
-    "capnp_bench_string_contains" [@@noalloc]
+    "zap_bench_string_contains" [@@noalloc]
   let string_contains ~haystack ~needle = _string_contains haystack needle
 
 
@@ -35,7 +35,7 @@ module TestCase = struct
     let good_count = ref 0 in
     let open CR.Builder.SearchResult in
     for i = 0 to num_results - 1 do
-      let result = Capnp.Array.get results i in
+      let result = Zap.Array.get results i in
       score_set result (Float.of_int (1000 - i));
       let url_size = FastRand.int 100 in
       let url_total_size = url_size + url_prefix_len in
@@ -54,7 +54,7 @@ module TestCase = struct
       let is_cat = FastRand.int 8 = 0 in
       let is_dog = FastRand.int 8 = 0 in
       good_count := !good_count +
-          (Capnp.Runtime.Util.int_of_bool (is_cat && (not is_dog)));
+          (Zap.Runtime.Util.int_of_bool (is_cat && (not is_dog)));
 
       let snippet = Buffer.create (40 * 6) in
       Buffer.add_char snippet ' ';
@@ -94,17 +94,17 @@ module TestCase = struct
     let module B = CR.Builder.SearchResult in
 
     let results = CR.Reader.SearchResultList.results_get result_list in
-    let num_results = Capnp.Array.length results in
+    let num_results = Zap.Array.length results in
 
     if num_results = 0 then
       CR.Builder.SearchResultList.init_root ()
     else begin
-      let result0 = Capnp.Array.get results 0 in
+      let result0 = Zap.Array.get results 0 in
       let scored_results = Array.create ~len:num_results
           { ScoredResult.score = 0.0; ScoredResult.result = result0; }
       in
       for i = 0 to num_results - 1 do
-        let result = Capnp.Array.get results i in
+        let result = Zap.Array.get results i in
         let score = ref (R.score_get result) in
         let snippet = R.snippet_get result in
 
@@ -125,7 +125,7 @@ module TestCase = struct
       let results = CR.Builder.SearchResultList.results_init response num_results in
       for i = 0 to num_results - 1 do
         let src = scored_results.(i) in
-        let dest_result = Capnp.Array.get results i in
+        let dest_result = Zap.Array.get results i in
         B.score_set dest_result src.ScoredResult.score;
         B.url_set dest_result (R.url_get src.ScoredResult.result);
         B.snippet_set dest_result (R.snippet_get src.ScoredResult.result)
@@ -136,9 +136,9 @@ module TestCase = struct
   let check_response result_list expected =
     let good_count = ref 0 in
     let results = CR.Reader.SearchResultList.results_get result_list in
-    let num_results = Capnp.Array.length results in
+    let num_results = Zap.Array.length results in
     for i = 0 to num_results - 1 do
-      let result = Capnp.Array.get results i in
+      let result = Zap.Array.get results i in
       if CR.Reader.SearchResult.score_get result > 1001.0 then
         good_count := !good_count + 1
     done;

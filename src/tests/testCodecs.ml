@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -32,8 +32,8 @@ module Quickcheck = Base_quickcheck
 
 
 let expect_packs_to unpacked packed =
-  assert_equal packed (Capnp.Runtime.Packing.pack_string unpacked);
-  assert_equal unpacked (Capnp.Runtime.Packing.unpack_string packed)
+  assert_equal packed (Zap.Runtime.Packing.pack_string unpacked);
+  assert_equal unpacked (Zap.Runtime.Packing.unpack_string packed)
 
 
 let packing_suite =
@@ -109,7 +109,7 @@ let packing_suite =
 
 
 (* Generator for characters with a distribution that resembles real
-   cap'n proto data, with lots of zeros. *)
+   zap data, with lots of zeros. *)
 let random_char_generator =
   let open Quickcheck.Generator.Monad_infix in
   Quickcheck.Generator.weighted_union [
@@ -117,11 +117,11 @@ let random_char_generator =
     5.0, Quickcheck.Generator.return '\x00';
   ]
 
-let capnp_string_gen =
+let zap_string_gen =
   let open Quickcheck.Generator.Monad_infix in
   Quickcheck.Generator.string_of random_char_generator >>| fun s ->
   (* input string must be word-aligned *)
-  Capnp.Runtime.Util.str_slice ~stop:((String.length s) land (lnot 0x7)) s
+  Zap.Runtime.Util.str_slice ~stop:((String.length s) land (lnot 0x7)) s
 
 
 let laws_exn name trials gen fn =
@@ -131,14 +131,14 @@ let laws_exn name trials gen fn =
     )
 
 let test_random_pack_unpack _ctx =
-  laws_exn "unpack(pack(x)) = x" 2000 capnp_string_gen (fun s ->
-    let packed = Capnp.Runtime.Packing.pack_string s in
-    let unpacked = Capnp.Runtime.Packing.unpack_string packed in
+  laws_exn "unpack(pack(x)) = x" 2000 zap_string_gen (fun s ->
+    let packed = Zap.Runtime.Packing.pack_string s in
+    let unpacked = Zap.Runtime.Packing.unpack_string packed in
     unpacked = s)
 
 
 let fragment (s : string) (add_fragment : string -> unit) =
-  let open Capnp.Runtime in
+  let open Zap.Runtime in
   let rec loop ofs =
     if ofs = String.length s then
       ()
@@ -151,8 +151,8 @@ let fragment (s : string) (add_fragment : string -> unit) =
 
 
 let test_random_pack_unpack_fragmented _ctx =
-  laws_exn "unpack(fragment(pack(x))) = x" 2000 capnp_string_gen (fun s ->
-    let open Capnp.Runtime in
+  laws_exn "unpack(fragment(pack(x))) = x" 2000 zap_string_gen (fun s ->
+    let open Zap.Runtime in
     let packed = Packing.pack_string s in
     let packed_fragments = FragmentBuffer.empty () in
     let () = fragment packed (FragmentBuffer.add_fragment packed_fragments) in
@@ -180,15 +180,15 @@ let random_packing_suite =
 
 let message_gen =
   let open Quickcheck.Generator.Monad_infix in
-  let segment_gen = capnp_string_gen >>| Bytes.unsafe_of_string in
+  let segment_gen = zap_string_gen >>| Bytes.unsafe_of_string in
   Quickcheck.Generator.int_uniform_inclusive 1 25 >>= fun length ->
   Quickcheck.Generator.list_with_length ~length segment_gen
-  >>| Capnp.BytesMessage.Message.of_storage
+  >>| Zap.BytesMessage.Message.of_storage
 
 let test_random_serialize_deserialize _ctx =
   laws_exn "deserialize(fragment(serialize(x))) = x"
-      2000 (Quickcheck.Generator.both message_gen capnp_string_gen) (fun (m, trailing_data) ->
-    let open Capnp.Runtime in
+      2000 (Quickcheck.Generator.both message_gen zap_string_gen) (fun (m, trailing_data) ->
+    let open Zap.Runtime in
     let serialized = Codecs.serialize ~compression:`None m in
     let ser_fragments = Codecs.FramedStream.empty `None in
     let () = fragment serialized (Codecs.FramedStream.add_fragment ser_fragments) in
@@ -197,15 +197,15 @@ let test_random_serialize_deserialize _ctx =
     | Result.Ok decoded_message ->
         let () = assert (Codecs.FramedStream.bytes_available ser_fragments =
           (String.length trailing_data)) in
-        (Capnp.Message.BytesMessage.Message.to_storage m) =
-          (Capnp.Message.BytesMessage.Message.to_storage decoded_message)
+        (Zap.Message.BytesMessage.Message.to_storage m) =
+          (Zap.Message.BytesMessage.Message.to_storage decoded_message)
     | Result.Error _ ->
         assert false)
 
 let test_random_serialize_deserialize_fold _ctx =
   laws_exn "deserialize(fragment(serialize(x))) = x"
-      2000 (Quickcheck.Generator.both message_gen capnp_string_gen) (fun (m, trailing_data) ->
-    let open Capnp.Runtime in
+      2000 (Quickcheck.Generator.both message_gen zap_string_gen) (fun (m, trailing_data) ->
+    let open Zap.Runtime in
     let ser_fragments = Codecs.FramedStream.empty `None in
     Codecs.serialize_fold m ~compression:`None ~init:() 
         ~f:(fun () fragment -> 
@@ -216,15 +216,15 @@ let test_random_serialize_deserialize_fold _ctx =
     | Result.Ok decoded_message ->
         let () = assert (Codecs.FramedStream.bytes_available ser_fragments =
           (String.length trailing_data)) in
-        (Capnp.Message.BytesMessage.Message.to_storage m) =
-          (Capnp.Message.BytesMessage.Message.to_storage decoded_message)
+        (Zap.Message.BytesMessage.Message.to_storage m) =
+          (Zap.Message.BytesMessage.Message.to_storage decoded_message)
     | Result.Error _ ->
         assert false)
 
 let test_random_serialize_deserialize_fold_copyless _ctx =
   laws_exn "deserialize(fragment(serialize(x))) = x"
-      2000 (Quickcheck.Generator.both message_gen capnp_string_gen) (fun (m, trailing_data) ->
-    let open Capnp.Runtime in
+      2000 (Quickcheck.Generator.both message_gen zap_string_gen) (fun (m, trailing_data) ->
+    let open Zap.Runtime in
     let ser_fragments = Codecs.FramedStream.empty `None in
     Codecs.serialize_fold_copyless m ~compression:`None ~init:() 
         ~f:(fun () fragment len -> 
@@ -236,22 +236,22 @@ let test_random_serialize_deserialize_fold_copyless _ctx =
     | Result.Ok decoded_message ->
         let () = assert (Codecs.FramedStream.bytes_available ser_fragments =
           (String.length trailing_data)) in
-        (Capnp.Message.BytesMessage.Message.to_storage m) =
-          (Capnp.Message.BytesMessage.Message.to_storage decoded_message)
+        (Zap.Message.BytesMessage.Message.to_storage m) =
+          (Zap.Message.BytesMessage.Message.to_storage decoded_message)
     | Result.Error _ ->
         assert false)
 
 let test_random_serialize_deserialize_packed _ctx =
   laws_exn "deserialize_unpack(fragment(serialize_pack(x))) = x"
       2000 message_gen (fun m ->
-    let open Capnp.Runtime in
+    let open Zap.Runtime in
     let packed = Codecs.serialize ~compression:`Packing m in
     let pack_fragments = Codecs.FramedStream.empty `Packing in
     let () = fragment packed (Codecs.FramedStream.add_fragment pack_fragments) in
     match Codecs.FramedStream.get_next_frame pack_fragments with
     | Result.Ok decoded_message ->
-        (Capnp.Message.BytesMessage.Message.to_storage m) =
-          (Capnp.Message.BytesMessage.Message.to_storage decoded_message)
+        (Zap.Message.BytesMessage.Message.to_storage m) =
+          (Zap.Message.BytesMessage.Message.to_storage decoded_message)
     | Result.Error _ ->
         assert false)
 

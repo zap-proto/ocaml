@@ -63,9 +63,9 @@ let () =
          increase the space overhead. *)
       let () = Gc.(set {(get ()) with space_overhead = 1000}) in
       let module BM = Methods.Benchmark
-          (CapnpCarsales.TestCase)
-          (CapnpCarsales.CS.Reader.ParkingLot)
-          (CapnpCarsales.CS.Reader.TotalValue)
+          (ZapCarsales.TestCase)
+          (ZapCarsales.CS.Reader.ParkingLot)
+          (ZapCarsales.CS.Reader.TotalValue)
       in
       let module BR = BenchmarkRunner(BM) in
       BR.f mode compression iters
@@ -75,17 +75,17 @@ let () =
          the major collection rate. *)
       let () = Gc.(set {(get ()) with space_overhead = 1000}) in
       let module BM = Methods.Benchmark
-          (CapnpCatrank.TestCase)
-          (CapnpCatrank.CR.Reader.SearchResultList)
-          (CapnpCatrank.CR.Reader.SearchResultList)
+          (ZapCatrank.TestCase)
+          (ZapCatrank.CR.Reader.SearchResultList)
+          (ZapCatrank.CR.Reader.SearchResultList)
       in
       let module BR = BenchmarkRunner(BM) in
       BR.f mode compression iters
     else if name = "eval" then
       let module BM = Methods.Benchmark
-          (CapnpEval.TestCase)
-          (CapnpEval.E.Reader.Expression)
-          (CapnpEval.E.Reader.EvaluationResult)
+          (ZapEval.TestCase)
+          (ZapEval.E.Reader.Expression)
+          (ZapEval.E.Reader.EvaluationResult)
       in
       let module BR = BenchmarkRunner(BM) in
       BR.f mode compression iters

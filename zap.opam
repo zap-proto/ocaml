@@ -1,13 +1,13 @@
 opam-version: "2.0"
-name: "capnp"
+name: "zap"
 maintainer: "Paul Pelzl <pelzlpj@gmail.com>"
 authors: "Paul Pelzl <pelzlpj@gmail.com>"
-homepage: "https://github.com/capnproto/capnp-ocaml"
-bug-reports: "https://github.com/capnproto/capnp-ocaml/issues"
+homepage: "https://github.com/zap-proto/ocaml"
+bug-reports: "https://github.com/zap-proto/ocaml/issues"
 license: "BSD-2-Clause"
 depends: [
   "ocaml" {>= "4.08.0"}
-  "dune" {>= "2.3"}
+  "dune" {>= "2.8"}
   "result"
   "base" {>= "v0.11"}
   "stdio"
@@ -16,17 +16,17 @@ depends: [
   "res"
   "stdint" {>= "0.5.1"}
   "ounit2" {with-test}
-  "conf-capnproto" {with-test}
+  "conf-zap" {with-test}
 ]
 build: [
   ["dune" "build" "-p" name "-j" jobs]
   ["dune" "build" "-p" name "-j" jobs "@runtest"] {with-test}
 ]
-dev-repo: "git+https://github.com/capnproto/capnp-ocaml.git"
+dev-repo: "git+https://github.com/zap-proto/ocaml.git"
 synopsis:
-  "OCaml code generation plugin for the Cap'n Proto serialization framework"
+  "OCaml code generation plugin for the ZAP serialization framework"
 description: """
-Cap'n Proto is a multi-language code generation framework designed for
+ZAP is a multi-language code generation framework designed for
 high performance through the use of lazy parsing and arena allocation.
-This package provides a plugin for the Cap'n Proto compiler which enables
+This package provides a plugin for the ZAP compiler which enables
 OCaml code generation, as well as corresponding runtime library support."""

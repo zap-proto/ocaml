@@ -1,4 +1,5 @@
 (executable
  (name main)
- (public_name capnpc-ocaml)
- (libraries capnp capnp_unix))
+ (public_name zapc-ocaml)
+ (package zap)
+ (libraries zap zap_unix))

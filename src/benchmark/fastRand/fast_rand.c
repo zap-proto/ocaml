@@ -1,5 +1,5 @@
 // C implementation of 128-bit Xorshift RNG, taken with minor modifications
-// from capnproto-C++ benchmark sources (MIT license follows).  OCaml generates
+// from zap-C++ benchmark sources (MIT license follows).  OCaml generates
 // kind of shitty code for this RNG, so it's faster to call out to a C extension.
 
 // Copyright (c) 2013-2014 Sandstorm Development Group, Inc. and contributors
@@ -55,7 +55,7 @@ static inline uint32_t nextFastRand() {
 
 // GC can never be triggered in this function, so we'll avoid
 // the usual CAMLParam/CAMLLocal/CAMLReturn business.
-value capnp_bench_nextFastRand(value unit) {
+value zap_bench_nextFastRand(value unit) {
   uint32_t result32 = nextFastRand();
   return Val_long(result32);
 }
@@ -63,24 +63,24 @@ value capnp_bench_nextFastRand(value unit) {
 
 // GC can never be triggered in this function, so we'll avoid
 // the usual CAMLParam/CAMLLocal/CAMLReturn business.
-value capnp_bench_fastRand(value range) {
+value zap_bench_fastRand(value range) {
   uint32_t range32  = Long_val(range);
   uint32_t result32 = nextFastRand() % range32;
   return Val_long(result32);
 }
 
 
-double capnp_bench_unboxed_fastRandDouble(double range)
+double zap_bench_unboxed_fastRandDouble(double range)
 {
   return nextFastRand() * range / UINT32_MAX;
 }
 
 
-value capnp_bench_fastRandDouble(value range) {
+value zap_bench_fastRandDouble(value range) {
   CAMLparam1(range);
   CAMLlocal1(result);
   double range_dbl = Double_val(range);
-  double result_dbl = capnp_bench_unboxed_fastRandDouble(range_dbl);
+  double result_dbl = zap_bench_unboxed_fastRandDouble(range_dbl);
   result = caml_copy_double(result_dbl);
   CAMLreturn(result);
 }
@@ -89,7 +89,7 @@ value capnp_bench_fastRandDouble(value range) {
 #include <string.h>
 
 // I didn't feel like making another C module to do this.
-value capnp_bench_string_contains(value haystack, value needle) {
+value zap_bench_string_contains(value haystack, value needle) {
   int ret = strstr(String_val(haystack), String_val(needle)) != NULL;
   return Val_bool(ret);
 }

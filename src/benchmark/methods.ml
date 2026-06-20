@@ -5,10 +5,10 @@ module List = Base.List
 module Queue = Base.Queue
 module Bytes = Base.Bytes
 module Int64 = Base.Int64
-module IO = Capnp_unix.IO
-module Codecs = Capnp.Codecs
+module IO = Zap_unix.IO
+module Codecs = Zap.Codecs
 
-let message_of_builder = Capnp.BytesMessage.StructStorage.message_of_builder
+let message_of_builder = Zap.BytesMessage.StructStorage.message_of_builder
 
 (* This is a wrapper for writing to a file descriptor and simultaneously
    counting the number of bytes written. *)
@@ -89,7 +89,7 @@ module Benchmark
 
 
   (* [async_client] issues randomized requests in a pipelined manner, matching
-     up the corresponding responses asynchronously.  Unlike the capnproto C++
+     up the corresponding responses asynchronously.  Unlike the zap C++
      benchmark, this runs in a single thread and uses a [select] loop to
      determine appropriate times to write and read. *)
   let async_client
@@ -196,17 +196,17 @@ module Benchmark
     for _i = 0 to iters - 1 do
       let (req_builder, expectation) = TestCase.setup_request () in
       let resp_builder = TestCase.handle_request
-          (Capnp.BytesMessage.StructStorage.reader_of_builder req_builder)
+          (Zap.BytesMessage.StructStorage.reader_of_builder req_builder)
       in
-      if not (TestCase.check_response (Capnp.BytesMessage.StructStorage.reader_of_builder resp_builder)
+      if not (TestCase.check_response (Zap.BytesMessage.StructStorage.reader_of_builder resp_builder)
             expectation) then
         failwith "incorrect response."
       else
         ();
       object_size_counter := !object_size_counter +
-        (Capnp.BytesMessage.Message.total_size
+        (Zap.BytesMessage.Message.total_size
            (message_of_builder req_builder)) +
-        (Capnp.BytesMessage.Message.total_size
+        (Zap.BytesMessage.Message.total_size
            (message_of_builder resp_builder))
     done;
     !object_size_counter

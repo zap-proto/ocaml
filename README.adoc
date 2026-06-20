@@ -1,16 +1,16 @@
-capnp-ocaml
+zap-ocaml
 ===========
 
 This is an http://ocaml.org[OCaml] code generator plugin for the
-http://kentonv.github.io/capnproto[Cap\'n Proto] serialization framework.
+https://zap-proto.io[ZAP] serialization framework.
 
-This plugin is roughly feature-complete for the Cap\'n Proto basic serialization.
+This plugin is roughly feature-complete for the ZAP basic serialization.
 
-For RPC support, see <https://github.com/mirage/capnp-rpc>.
+For RPC support, see <https://github.com/zap-proto/ocaml-rpc>.
 
 Design Notes
 ------------
-The generated code follows the general Cap\'n Proto convention of using the
+The generated code follows the general ZAP convention of using the
 serialized message format as the in-memory data structure representation. This
 enables the "infinitely faster" performance characteristic, but it also means
 that the generated code is not directly compatible with OCaml records, arrays,
@@ -23,12 +23,12 @@ for applications involving `mmap()`).
 
 Generated Code
 --------------
-The Cap\'n Proto types are mapped to OCaml types as follows:
+The ZAP types are mapped to OCaml types as follows:
 
 .Type mapping
 [width="50%",cols="2",options="header"]
 |================================================
-| Cap\'n Proto Type | OCaml Type
+| ZAP Type | OCaml Type
 | `Void`            | `unit`
 | `Bool`            | `bool`
 | `Int8`            | `int`
@@ -43,15 +43,15 @@ The Cap\'n Proto types are mapped to OCaml types as follows:
 | `Float64`         | `float`
 | `Text`            | `string`
 | `Data`            | `string`
-| `List<T>`         | `('a, T, 'b) Capnp.Array.t`
+| `List<T>`         | `('a, T, 'b) Zap.Array.t`
 |================================================
 
-The `Capnp.Array` module is roughly API-compatible with OCaml arrays and
+The `Zap.Array` module is roughly API-compatible with OCaml arrays and
 provides similar performance characteristics.
 
-A Cap\'n Proto struct maps to an OCaml module.  The generated module hierarchy
+A ZAP struct maps to an OCaml module.  The generated module hierarchy
 reflects the hierarchy of structs specified in the schema file.  For example,
-the Cap\'n Proto schema
+the ZAP schema
 --------------------------------------------------------------------------------
 @0xbdb65202adbdc4a0;
 
@@ -260,7 +260,7 @@ val has_foo : t -> bool
     are initialized as the default value for the struct type).
 
     @return a reference to the content of field [foo] *)
-val foo_init : t -> int -> (rw, Inner.t, 'a) Capnp.Array.t
+val foo_init : t -> int -> (rw, Inner.t, 'a) Zap.Array.t
 
 (** [foo_get s] gets a reference to the content of field [foo].  (For the
     Builder implementation, if the field was not previously initialized
@@ -268,7 +268,7 @@ val foo_init : t -> int -> (rw, Inner.t, 'a) Capnp.Array.t
     list and cause [has_foo s] to return [true].)
 
     @raise Message.Invalid_message if the message is ill-formatted *)
-val foo_get : t -> ('cap, Inner.t, 'arr) Capnp.Array.t
+val foo_get : t -> ('cap, Inner.t, 'arr) Zap.Array.t
 
 (** [foo_get_list s] creates an OCaml list containing the content of
     field [foo].
@@ -289,8 +289,8 @@ val foo_get_array : t -> Inner.t array
     @return a reference to the content of field [foo]
 
     @raise Message.Invalid_message if the message is ill-formatted *)
-val foo_set : t -> ('cap, Inner.t, 'a) Capnp.Array.t ->
-                (rw, Inner.t, 'b) Capnp.Array.t
+val foo_set : t -> ('cap, Inner.t, 'a) Zap.Array.t ->
+                (rw, Inner.t, 'b) Zap.Array.t
 
 (** [foo_set_list s v] sets the content of field [foo] from OCaml list [v].
     (This may result in reallocation of [foo], which may lead to poor
@@ -299,7 +299,7 @@ val foo_set : t -> ('cap, Inner.t, 'a) Capnp.Array.t ->
     @return a reference to the content of field [foo]
 
     @raise Message.Invalid_message if the message is ill-formatted *)
-val foo_set_list : t -> Inner.t list -> (rw, Inner.t, 'b) Capnp.Array.t
+val foo_set_list : t -> Inner.t list -> (rw, Inner.t, 'b) Zap.Array.t
 
 (** [foo_set_array s v] sets the content of field [foo] from OCaml array [v].
     (This may result in reallocation of [foo], which may lead to poor
@@ -308,12 +308,12 @@ val foo_set_list : t -> Inner.t list -> (rw, Inner.t, 'b) Capnp.Array.t
     @return a reference to the content of field [foo]
 
     @raise Message.Invalid_message if the message is ill-formatted *)
-val foo_set_array : t -> Inner.t array -> (rw, Inner.t, 'b) Capnp.Array.t
+val foo_set_array : t -> Inner.t array -> (rw, Inner.t, 'b) Zap.Array.t
 --------------------------------------------------------------------------------
 
 Union Fields
 ~~~~~~~~~~~~
-Cap\'n Proto has first-class support for union (sum) types.  These are mapped
+ZAP has first-class support for union (sum) types.  These are mapped
 to OCaml variants in a straightforward way.  To retrieve a union value,
 use the generated `get` function which will return a variant specifying which
 of the possible fields is present.  To set a union value, use the generated
@@ -460,7 +460,7 @@ The generated file will also contain `Client` and `Service` top-level modules:
       module MyMethod : sig
         module Params = Builder.Foo.MyMethod.Params
         module Results = Reader.Foo.MyMethod.Results
-        val method_id : (t, Params.t, Results.t) Capnp.RPC.MethodID.t
+        val method_id : (t, Params.t, Results.t) Zap.RPC.MethodID.t
       end
     end
   end
@@ -500,21 +500,21 @@ Inheritance is not currently supported.
 Generating Code
 ---------------
 You will need to
-http://kentonv.github.io/capnproto/install.html[install the Cap\'n Proto compiler].
-Once the Cap\'n Proto compiler and capnp-ocaml are both installed, you should be
-able to use `capnp compile -o ocaml yourSchemaFile.capnp` in order to generate
+https://zap-proto.io/docs/install[install the ZAP compiler].
+Once the ZAP compiler and zap-ocaml are both installed, you should be
+able to use `zap compile -o ocaml yourSchemaFile.zap` in order to generate
 `yourSchemaFile.mli` and `yourSchemaFile.ml`.  These modules will link against
-the `capnp` library.
+the `zap` library.
 
 Instantiating the Modules
 -------------------------
-The modules generated by capnp-ocaml are functors which take the underlying
+The modules generated by zap-ocaml are functors which take the underlying
 message type as input.
 
 In principle, messages can be stored using any underlying data structure that
-satisfies the `Capnp.MessageStorage.S` signature.  At present, capnp-ocaml
-contains one implementation: `Capnp.BytesStorage` provides message storage in
-the form of native OCaml `bytes` buffers, and `Capnp.BytesMessage` provides
+satisfies the `Zap.MessageStorage.S` signature.  At present, zap-ocaml
+contains one implementation: `Zap.BytesStorage` provides message storage in
+the form of native OCaml `bytes` buffers, and `Zap.BytesMessage` provides
 a `Message` implementation based on `BytesStorage`.  This module makes it easy to
 retrieve messages in a format suitable for use with file I/O, socket I/O,
 etc.
@@ -523,7 +523,7 @@ To instantiate your code using BytesMessage, you could use the following
 pattern:
 [source,ocaml]
 --------------------------------------------------------------------------------
-module YSF = YourSchemaFile.Make(Capnp.BytesMessage)
+module YSF = YourSchemaFile.Make(Zap.BytesMessage)
 
 let root_struct = YSF.Builder.Foo.init_root () in
 (* ... *)
@@ -538,7 +538,7 @@ build of the OCaml compiler (e.g. `opam switch 4.04.1+flambda`) and using the
 
 [source,ocaml]
 --------------------------------------------------------------------------------
-module YSF = YourSchemaFile.Make[@inlined](Capnp.BytesMessage)
+module YSF = YourSchemaFile.Make[@inlined](Zap.BytesMessage)
 --------------------------------------------------------------------------------
 
 You can use the `ocamlopt -inlining-report` option to check that the code has
@@ -547,21 +547,21 @@ about speed.
 
 I Need to See an Example
 ------------------------
-There are some simple examples in the https://github.com/capnproto/capnp-ocaml/tree/master/src/examples[examples] directory.
+There are some simple examples in the https://github.com/zap-proto/ocaml/tree/master/src/examples[examples] directory.
 
-The https://github.com/capnproto/capnp-ocaml/tree/master/src/tests[tests]
-and https://github.com/capnproto/capnp-ocaml/tree/master/src/benchmark[benchmark]
+The https://github.com/zap-proto/ocaml/tree/master/src/tests[tests]
+and https://github.com/zap-proto/ocaml/tree/master/src/benchmark[benchmark]
 subdirectories may also be helpful to look at.
 
-The https://github.com/mirage/capnp-rpc/blob/master/README.md[RPC tutorial] also contains many examples.
+The https://github.com/zap-proto/ocaml-rpc/blob/master/README.md[RPC tutorial] also contains many examples.
 
 
 Installation
 ------------
-capnp-ocaml requires OCaml >= 4.02.
+zap-ocaml requires OCaml >= 4.02.
 
-You should be able to install capnp-ocaml with
-http://opam.ocaml.org[OPAM] using using `opam install capnp`.
+You should be able to install zap-ocaml with
+http://opam.ocaml.org[OPAM] using using `opam install zap`.
 
 If you prefer to compile manually, you will need jbuilder, Findlib, and OCaml
 packages `core_kernel`, `extunix`, `uint`, `ocplib-endian`, and `res`.

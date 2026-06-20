@@ -1,5 +1,5 @@
 (******************************************************************************
- * capnp-ocaml
+ * zap-ocaml
  *
  * Copyright (c) 2013-2014, Paul Pelzl
  * All rights reserved.
@@ -30,7 +30,7 @@
 module Uint32 = Stdint.Uint32
 module Uint64 = Stdint.Uint64
 
-module SM = Capnp.Message.Make(Capnp.BytesStorage)
+module SM = Zap.Message.Make(Zap.BytesStorage)
 open OUnit2
 
 
