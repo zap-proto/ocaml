@@ -39,7 +39,6 @@ module IO = Zap_unix.IO
 module ExitCode = struct
   let success       = 0
   let general_error = 1
-  let syntax_error  = 2
 end
 
 let main () : int =

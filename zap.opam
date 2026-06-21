@@ -16,7 +16,6 @@ depends: [
   "res"
   "stdint" {>= "0.5.1"}
   "ounit2" {with-test}
-  "conf-zap" {with-test}
 ]
 build: [
   ["dune" "build" "-p" name "-j" jobs]

@@ -1,8 +1,18 @@
+; The unit tests link generated modules (Test, Test_import, Test_iface_import,
+; TestCycles, ...), so the whole test executable depends on the `zap` schema
+; compiler being on PATH to run codegen. That front-end is built from cpp-core
+; and is not packaged by opam, so the test+codegen stanzas are gated on the
+; ZAP_COMPILER env var: set it (to any non-empty value) once `zap` is installed.
+; Default `dune build` / `dune test` build the runtime+plugin without it.
 (test
  (name run_tests)
+ (enabled_if
+  (<> %{env:ZAP_COMPILER=} ""))
  (libraries zap ounit2 base_quickcheck))
 
 (rule
+ (enabled_if
+  (<> %{env:ZAP_COMPILER=} ""))
  (targets
   test.ml               test.mli
   test_iface_import.ml  test_iface_import.mli

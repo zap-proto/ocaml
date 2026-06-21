@@ -1,45 +1,70 @@
+; Benchmarks link generated modules (carsales/catrank/eval), so they need the
+; `zap` schema compiler on PATH (gated on ZAP_COMPILER, see src/tests/dune) and
+; only build on amd64 (the fastRand C stub / -O3 path is x86-tuned).
 (executable
  (name main)
- (enabled_if (= %{architecture} amd64))
+ (enabled_if
+  (and
+   (= %{architecture} amd64)
+   (<> %{env:ZAP_COMPILER=} "")))
  (libraries zap zap_unix fast_rand base)
  (ocamlopt_flags :standard -O3 -inline 2000))
 
 (rule
  (targets carsales)
- (enabled_if (= %{architecture} amd64))
+ (enabled_if
+  (and
+   (= %{architecture} amd64)
+   (<> %{env:ZAP_COMPILER=} "")))
  (deps main.exe)
  (action
   (run ln main.exe %{targets})))
 
 (rule
  (targets catrank)
- (enabled_if (= %{architecture} amd64))
+ (enabled_if
+  (and
+   (= %{architecture} amd64)
+   (<> %{env:ZAP_COMPILER=} "")))
  (deps main.exe)
  (action
   (run ln main.exe %{targets})))
 
 (rule
  (targets eval)
- (enabled_if (= %{architecture} amd64))
+ (enabled_if
+  (and
+   (= %{architecture} amd64)
+   (<> %{env:ZAP_COMPILER=} "")))
  (deps main.exe)
  (action
   (run ln main.exe %{targets})))
 
 (rule
+ (enabled_if
+  (<> %{env:ZAP_COMPILER=} ""))
  (targets carsales.ml carsales.mli)
  (action
   (run zap compile -o %{bin:zapc-ocaml} %{dep:carsales.zap})))
 
 (rule
+ (enabled_if
+  (<> %{env:ZAP_COMPILER=} ""))
  (targets catrank.ml catrank.mli)
  (action
   (run zap compile -o %{bin:zapc-ocaml} %{dep:catrank.zap})))
 
 (rule
+ (enabled_if
+  (<> %{env:ZAP_COMPILER=} ""))
  (targets eval.ml eval.mli)
  (action
   (run zap compile -o %{bin:zapc-ocaml} %{dep:eval.zap})))
 
 (alias
  (name benchmarks)
+ (enabled_if
+  (and
+   (= %{architecture} amd64)
+   (<> %{env:ZAP_COMPILER=} "")))
  (deps carsales catrank eval))

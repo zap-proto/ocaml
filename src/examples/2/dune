@@ -1,7 +1,12 @@
+; Gated on ZAP_COMPILER (see src/examples/1/dune): links generated `shape.ml`.
 (executable
   (name example2)
+  (enabled_if
+   (<> %{env:ZAP_COMPILER=} ""))
   (libraries zap))
 
 (rule
+  (enabled_if
+   (<> %{env:ZAP_COMPILER=} ""))
   (targets shape.ml shape.mli)
   (action (run zap compile -o %{bin:zapc-ocaml} %{dep:shape.zap})))

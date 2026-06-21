@@ -1,9 +1,14 @@
+; Gated on ZAP_COMPILER: the example links generated `foo.ml`, which needs the
+; `zap` schema compiler on PATH (https://zap-proto.io/docs/install). Set
+; ZAP_COMPILER to any non-empty value once `zap` is installed to build it.
 (executable
   (name example1)
+  (enabled_if
+   (<> %{env:ZAP_COMPILER=} ""))
   (libraries zap))
 
-; This rule tells dune how to generate foo.ml and foo.mli by compiling foo.zap against the ZAP compiler
-; PLEASE NOTE that zapc must exist on your computer for this to work (https://zap-proto.io/docs/install)
-(rule 
+(rule
+  (enabled_if
+   (<> %{env:ZAP_COMPILER=} ""))
   (targets foo.ml foo.mli)
   (action (run zap compile -o %{bin:zapc-ocaml} %{dep:foo.zap})))

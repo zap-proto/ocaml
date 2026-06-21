@@ -1,0 +1,80 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Build the installable artifacts (runtime + unix libraries and the
+  # `zapc-ocaml` codegen plugin) across the supported OCaml versions. None of
+  # these need the external `zap` schema compiler, so this job is hermetic.
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        # 5.1 is the primary target; 4.08 is the declared minimum (zap.opam).
+        ocaml-compiler: ["5.1", "4.08"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+
+      - run: opam install . --deps-only --with-test
+
+      - name: Build libraries + plugin
+        run: opam exec -- dune build @install
+
+  # Run the unit + conformance tests. These link code generated from the .zap
+  # schemas, so they require the `zap` schema compiler. It is not packaged by
+  # opam, so we build it from zap-proto/cpp-core and gate the codegen/test
+  # stanzas on ZAP_COMPILER (see src/tests/dune).
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ocaml
+
+      - name: Checkout the zap schema compiler (cpp-core)
+        uses: actions/checkout@v4
+        with:
+          repository: zap-proto/cpp-core
+          path: cpp-core
+
+      - name: Build the zap compiler
+        run: |
+          cmake -B cpp-core/build -S cpp-core/c++ \
+            -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
+            -DWITH_OPENSSL=OFF -DWITH_ZLIB=OFF -DWITH_FIBERS=OFF
+          cmake --build cpp-core/build --target zap_tool -j"$(nproc)"
+          echo "$GITHUB_WORKSPACE/cpp-core/build/src/zap" >> "$GITHUB_PATH"
+
+      - name: Verify zap is on PATH
+        run: zap --version
+
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.1"
+          dune-cache: true
+          opam-local-packages: ocaml/zap.opam
+
+      - name: Install dependencies
+        working-directory: ocaml
+        run: opam install . --deps-only --with-test
+
+      - name: Build + run tests (codegen enabled)
+        working-directory: ocaml
+        env:
+          ZAP_COMPILER: "1"
+        run: opam exec -- dune build @install @runtest
