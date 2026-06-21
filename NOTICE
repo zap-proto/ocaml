@@ -1,0 +1,12 @@
+ocaml — part of the ZAP Protocol (github.com/zap-proto)
+
+This product includes software developed by the capnp-ocaml project:
+  capnp-ocaml — https://github.com/capnproto/capnp-ocaml
+    (originally https://github.com/pelzlpj/capnp-ocaml)
+  Copyright (c) 2013-2014 Paul Pelzl
+  Licensed under the BSD 2-Clause License (see LICENSE.md).
+
+ZAP is a derivative work: a brand-neutral fork of capnp-ocaml providing the
+`zapc-ocaml` code-generation plugin and the OCaml zero-copy runtime, driven by
+the `zap` schema compiler.
+Modifications Copyright (c) 2025 Lux Industries Inc.
