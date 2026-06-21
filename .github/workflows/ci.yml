@@ -20,8 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        # 5.1 is the primary target; 4.08 is the declared minimum (zap.opam).
-        ocaml-compiler: ["5.1", "4.08"]
+        # 5.1 is the primary target. 4.14 is the oldest compiler still
+        # provisionable by setup-ocaml@v3 and guards the 4.x lower bound
+        # (zap.opam declares >= 4.08, but 4.08 is no longer in the
+        # opam-repository compiler set setup-ocaml resolves against).
+        ocaml-compiler: ["5.1", "4.14"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +55,18 @@ jobs:
           repository: zap-proto/cpp-core
           path: cpp-core
 
+      # cpp-core requires a C++23 standard library (it uses <print>). The
+      # default GCC on the runner is too old, so install GCC 14 and build with
+      # it.
+      - name: Install a C++23 toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-14
+
       - name: Build the zap compiler
+        env:
+          CC: gcc-14
+          CXX: g++-14
         run: |
           cmake -B cpp-core/build -S cpp-core/c++ \
             -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
